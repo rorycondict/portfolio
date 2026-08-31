@@ -10,6 +10,7 @@ export default function App() {
           <br />
           <h2>welcome to my portfolio</h2>
           <p>it's a bit bare-bones at the minute, i'm working on it!</p>
+          <p>A test of CI/CD</p>
         </div>
       </section>
 
