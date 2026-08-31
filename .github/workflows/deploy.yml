@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    name: Build
+    name: Build & Deploy
     timeout-minutes: 60
     steps:
       - name: Checkout
