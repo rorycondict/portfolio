@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Montserrat", sans-serif;
+  --font-display: "Consolas", sans-serif;
   --color-bg: #141932;
   --color-text: #d0d0d0;
   --anim-delay: 1.5s;
@@ -12,8 +12,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
 
-  min-height: 100vh;
-  padding: 15rem;
+  padding: clamp(2rem, 8vw + 2rem, 15rem);
 
   display: flex;
   flex-direction: column;
@@ -26,10 +25,6 @@ h1,
 h2,
 p {
   margin: 0;
-}
-
-h2 {
-  font-size: 32px;
 }
 
 ul {
@@ -58,6 +53,8 @@ a::after {
   will-change: transform;
 }
 
-a:hover::after {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  a:hover::after {
+    transform: scaleX(1);
+  }
 }

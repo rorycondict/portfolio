@@ -8,12 +8,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import Home from "@/app/routes/Home";
 
 const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      {import.meta.env.DEV && <TanStackRouterDevtools />}
-    </>
-  ),
+  component: RootLayout,
 });
 
 const indexRoute = createRoute({
@@ -30,4 +25,13 @@ declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+}
+
+function RootLayout() {
+  return (
+    <>
+      <Outlet />
+      {import.meta.env.DEV && <TanStackRouterDevtools />}
+    </>
+  );
 }
