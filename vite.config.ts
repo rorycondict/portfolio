@@ -1,24 +1,21 @@
-import { defineConfig } from "vite";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import path from "path";
+import { defineConfig } from 'vite'
+import { devtools } from '@tanstack/devtools-vite'
 
-// https://vite.dev/config/
-export default defineConfig({
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+
+import viteReact from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { cloudflare } from '@cloudflare/vite-plugin'
+
+const config = defineConfig({
+  resolve: { tsconfigPaths: true },
   plugins: [
-    tanstackRouter({
-      target: "react",
-      autoCodeSplitting: true,
-      routesDirectory: "./src/app/routes",
-      generatedRouteTree: "./src/app/routeTree.gen.ts",
-    }),
-    react(),
+    devtools(),
+    cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tailwindcss(),
+    tanstackStart(),
+    viteReact(),
   ],
-  resolve: {
-    alias: {
-      "@": path.resolve(import.meta.dirname, "./src"),
-    },
-  },
-});
+})
+
+export default config
