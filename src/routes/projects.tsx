@@ -11,7 +11,10 @@ export const Route = createFileRoute("/projects")({
 function Projects() {
 	return (
 		<section>
-			<p>see what I've been up to:</p>
+			<h1 className="text-center max-w-md w-full mx-auto">
+				these are projects that I've created, contributed to, or am currently
+				maintaining.
+			</h1>
 		</section>
 	);
 }

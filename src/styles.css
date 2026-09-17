@@ -13,18 +13,9 @@
 
 :root {
   --bg: #161821;
-  --fg: #c6c8d1;
+  --fg: #bfc0c6;
   --fg-highlight: #ffffff;
   --fg-muted: #5b5b5e;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #161821;
-    --fg: #bfc0c6;
-    --fg-highlight: #ffffff;
-    --fg-muted: #5b5b5e;
-  }
 }
 
 * {
@@ -90,12 +81,15 @@ main::-webkit-scrollbar-thumb:hover {
 
 a {
   color: var(--fg-highlight);
-  text-decoration-color: var(--fg-highlight);
+  text-decoration-line: underline;
+  text-decoration-color: var(--fg-muted);
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 170ms ease;
 }
 
 a:hover {
+  text-decoration-color: var(--fg-highlight);
 }
 
 code {

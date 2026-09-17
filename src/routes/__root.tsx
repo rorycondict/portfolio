@@ -47,7 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="flex h-screen flex-col overflow-hidden w-full max-w-4xl mx-auto py-20 font-sans antialiased wrap-anywhere">
+			<body className="flex h-screen flex-col overflow-hidden w-full max-w-4xl mx-auto py-30 font-sans antialiased wrap-anywhere px-8">
 				<Header />
 				<main className="min-h-0 flex-1 overflow-y-auto mx-auto w-full max-w-2xl my-5">
 					{children}

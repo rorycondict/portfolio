@@ -15,7 +15,7 @@ function About() {
 		<section className="flex flex-col">
 			<div className="mx-auto flex flex-col items-center">
 				<div className="flex flex-wrap justify-center">
-					<pre className="ascii-art text-[10px] md:pr-5 pb-3">
+					<pre className="ascii-art text-[8px] md:text-[10px] md:pr-5 pb-3">
 						{`
 
 ░██░████  ░███████  ░██░████ ░██    ░██
@@ -26,7 +26,7 @@ function About() {
                                     ░██
                               ░███████`}
 					</pre>
-					<pre className="ascii-art text-[10px]">
+					<pre className="ascii-art text-[8px] md:text-[10px] ">
 						{`                                       ░██ ░██              ░██
                                        ░██                  ░██
  ░███████   ░███████  ░████████   ░████████ ░██ ░███████  ░████████
@@ -38,19 +38,18 @@ function About() {
 `}
 					</pre>
 				</div>
-				<div>{"-".repeat(25)}</div>
+				<div>{"-".repeat(20)}</div>
 			</div>
 			<div className="flex flex-col pt-5 max-w-xl mx-auto w-full gap-10">
 				<p>hey, I'm Rory.</p>
 
 				<p>
-					I'm a software developer, currently studying CS as an undergrad. My
-					professional interests include ML and cybersecurity.
+					I like software; currently studying CS as an undergrad. I'm pursuing
+					ML and cybersecurity in particular.
 				</p>
 
 				<p>
-					outside of academia, my hobbies include game development, digital art,
-					and photography.
+					my hobbies include game development, digital art, and photography.
 				</p>
 
 				<div className="flex flex-col gap-3">

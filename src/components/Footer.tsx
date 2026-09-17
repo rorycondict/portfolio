@@ -2,7 +2,8 @@ export default function Footer() {
 	const year = new Date().getFullYear();
 
 	return (
-		<footer className="text-sm flex flex-row px-20 pt-3 justify-between">
+		<footer className="text-sm text-center flex flex-col max-w-2xl w-full mx-auto pt-3 justify-between">
+			<div>{"-".repeat(20)}</div>
 			<div className="flex flex-col">
 				<p>&copy; {year} rory condict.</p>
 				<p className="text-muted">
