@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/IconLink";
-import { formatTitle } from "@/utils";
+import { formatMonthYear, formatTitle } from "@/utils";
 import ProjectCard from "../components/ProjectCard";
 import { PROJECTS } from "../constants/projects";
+
+const sortedProjects = [...PROJECTS].sort((a, b) =>
+	b.startedAt.localeCompare(a.startedAt),
+);
 
 export const Route = createFileRoute("/projects")({
 	head: () => ({
@@ -38,9 +42,17 @@ function Projects() {
 				{"-".repeat(20)}
 			</div>
 
-			<ul className="flex flex-col gap-5 max-w-xl mx-auto w-full">
-				{PROJECTS.map((project) => (
-					<li key={project.name}>
+			<ul className="relative flex flex-col gap-8 max-w-xl mx-auto w-full">
+				<div
+					aria-hidden
+					className="absolute top-3 bottom-3 left-1.75 w-px bg-line"
+				/>
+
+				{sortedProjects.map((project) => (
+					<li key={project.name} className="relative pl-8">
+						<p className="text-muted text-xs pb-2">
+							{formatMonthYear(project.startedAt)}
+						</p>
 						<ProjectCard project={project} />
 					</li>
 				))}
