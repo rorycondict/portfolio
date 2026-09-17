@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 function App() {
 	return (
 		<section>
-			<p>welcome</p>
+			<p>loading...</p>
 		</section>
 	);
 }
