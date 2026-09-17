@@ -3,7 +3,14 @@ import { formatTitle } from "@/utils";
 
 export const Route = createFileRoute("/projects")({
 	head: () => ({
-		meta: [{ title: formatTitle("ls projects/") }],
+		meta: [
+			{ title: formatTitle("ls projects/") },
+			{
+				name: "description",
+				content:
+					"browse the projects I've created, contributed to, or am currently maintaining.",
+			},
+		],
 	}),
 	component: Projects,
 });

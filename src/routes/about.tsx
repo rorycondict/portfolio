@@ -5,7 +5,13 @@ import IconLink from "../components/IconLink";
 
 export const Route = createFileRoute("/about")({
 	head: () => ({
-		meta: [{ title: formatTitle("whoami") }],
+		meta: [
+			{ title: formatTitle("whoami") },
+			{
+				name: "description",
+				content: "learn a bit more about me, my interests, and my hobbies.",
+			},
+		],
 	}),
 	component: About,
 });
