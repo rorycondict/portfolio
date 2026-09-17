@@ -37,9 +37,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="font-sans antialiased wrap-anywhere">
+			<body className="flex h-screen flex-col overflow-hidden py-20 px-70 font-sans antialiased wrap-anywhere">
 				<Header />
-				{children}
+				<main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
 				<Footer />
 				<TanStackDevtools
 					config={{

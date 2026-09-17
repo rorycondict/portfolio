@@ -1,27 +1,32 @@
+import { Fragment } from "react";
 import { Link } from "@tanstack/react-router";
-import ThemeToggle from "./ThemeToggle";
+
+const links = [
+	{ to: "/about", label: "about" },
+	{ to: "/projects", label: "projects" },
+	{ to: "/contact", label: "contact" },
+];
 
 export default function Header() {
 	return (
-		<header className="sticky top-0 z-50 border-b border-(--line) bg-(--header-bg) px-4 backdrop-blur-lg">
-			<nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
-				<div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-0 sm:w-auto sm:flex-nowrap sm:pb-0">
-					<Link
-						to="/"
-						className="nav-link"
-						activeProps={{ className: "nav-link is-active" }}
-					>
-						home
-					</Link>
-					<Link
-						to="/projects"
-						className="nav-link"
-						activeProps={{ className: "nav-link is-active" }}
-					>
-						projects
-					</Link>
+		<header className="sticky top-0 z-50 px-4">
+			<nav className="page-wrap relative flex items-center justify-center py-4">
+				<div className="flex flex-wrap items-center justify-center gap-x-5 text-md font-medium">
+					{links.map((link, i) => (
+						<Fragment key={link.to}>
+							<Link
+								to={link.to}
+								className="nav-link"
+								activeProps={{ className: "nav-link is-active" }}
+							>
+								{link.label}
+							</Link>
+							{i < links.length - 1 && (
+								<span className="select-none opacity-60">·</span>
+							)}
+						</Fragment>
+					))}
 				</div>
-				<ThemeToggle />
 			</nav>
 		</header>
 	);

@@ -3,11 +3,11 @@ import { formatTitle } from "@/utils";
 
 export const Route = createFileRoute("/projects")({
 	head: () => ({
-		meta: [{ title: formatTitle("cd projects") }],
+		meta: [{ title: formatTitle("ls projects/") }],
 	}),
 	component: Projects,
 });
 
 function Projects() {
-	return <main className="page-wrap px-4 py-12">About Page</main>;
+	return <div>Projects Page {'a'.repeat(10000)}</div>;
 }
