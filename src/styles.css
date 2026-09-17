@@ -6,17 +6,24 @@
   --font: "Consolas", ui-sans-serif, system-ui, sans-serif;
 }
 
+@theme inline {
+  --color-muted: var(--fg-muted);
+  --color-fg: var(--fg);
+}
+
 :root {
-  --text: #33374c;
-  --bg: #e8e9ec;
-  --line: #2d539e;
+  --bg: #161821;
+  --fg: #c6c8d1;
+  --fg-highlight: #ffffff;
+  --fg-muted: #5b5b5e;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --text: #c6c8d1;
     --bg: #161821;
-    --line: #84a0c6;
+    --fg: #bfc0c6;
+    --fg-highlight: #ffffff;
+    --fg-muted: #5b5b5e;
   }
 }
 
@@ -31,8 +38,7 @@ body,
 }
 
 body {
-  margin: 0;
-  color: var(--text);
+  color: var(--fg);
   font-family: var(--font);
   background-color: var(--bg);
   overflow-x: hidden;
@@ -62,7 +68,7 @@ body::after {
 
 main {
   scrollbar-width: thin;
-  scrollbar-color: var(--text) transparent;
+  scrollbar-color: var(--fg-highlight) transparent;
 }
 
 main::-webkit-scrollbar {
@@ -74,23 +80,22 @@ main::-webkit-scrollbar-track {
 }
 
 main::-webkit-scrollbar-thumb {
-  background-color: var(--text);
+  background-color: var(--fg);
   border-radius: 9999px;
 }
 
 main::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text);
+  background-color: var(--fg);
 }
 
 a {
-  color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
+  color: var(--fg-highlight);
+  text-decoration-color: var(--fg-highlight);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
 a:hover {
-  color: #246f76;
 }
 
 code {
@@ -120,7 +125,7 @@ pre code {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: var(--text);
+  color: var(--fg-muted);
 }
 
 .nav-link::after {
@@ -132,13 +137,13 @@ pre code {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: linear-gradient(90deg, var(--text), #7ed3bf);
+  background: var(--fg-highlight);
   transition: transform 170ms ease;
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  color: var(--text);
+  color: var(--fg-highlight);
 }
 
 .nav-link:hover::after,

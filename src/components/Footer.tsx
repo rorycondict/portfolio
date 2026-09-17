@@ -2,10 +2,12 @@ export default function Footer() {
 	const year = new Date().getFullYear();
 
 	return (
-		<footer className="px-20 pt-3">
-			<div className="page-wrap flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-				<p className="m-0 text-sm">
-					&copy; {year} rory condict. all rights reserved.
+		<footer className="text-sm flex flex-row px-20 pt-3 justify-between">
+			<div className="flex flex-col">
+				<p>&copy; {year} rory condict.</p>
+				<p className="text-muted">
+					{/** biome-ignore lint/suspicious/noCommentText: intentional */}
+					// EOF
 				</p>
 			</div>
 		</footer>

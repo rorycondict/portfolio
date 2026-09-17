@@ -9,5 +9,5 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
-	return <div>Contact Page</div>;
+	return <div>wip :(</div>;
 }

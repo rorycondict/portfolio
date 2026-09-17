@@ -9,5 +9,9 @@ export const Route = createFileRoute("/projects")({
 });
 
 function Projects() {
-	return <div>Projects Page {'a'.repeat(10000)}</div>;
+	return (
+		<section>
+			<p>see what I've been up to:</p>
+		</section>
+	);
 }

@@ -1,9 +1,14 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Scripts,
+	useRouterState,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { formatTitle } from "@/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -25,9 +30,14 @@ export const Route = createRootRoute({
 				rel: "stylesheet",
 				href: appCss,
 			},
+			{
+				rel: "icon",
+				href: "/favicon.png",
+			},
 		],
 	}),
 	shellComponent: RootDocument,
+	notFoundComponent: NotFound,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -37,9 +47,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="flex h-screen flex-col overflow-hidden py-20 px-70 font-sans antialiased wrap-anywhere">
+			<body className="flex h-screen flex-col overflow-hidden w-full max-w-4xl mx-auto py-20 font-sans antialiased wrap-anywhere">
 				<Header />
-				<main className="min-h-0 flex-1 overflow-y-auto">{children}</main>
+				<main className="min-h-0 flex-1 overflow-y-auto mx-auto w-full max-w-2xl my-5">
+					{children}
+				</main>
 				<Footer />
 				<TanStackDevtools
 					config={{
@@ -55,5 +67,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Scripts />
 			</body>
 		</html>
+	);
+}
+
+function NotFound() {
+	return (
+		<>
+			<title>{formatTitle("command not found")}</title>
+			<div className="flex flex-col gap-10 text-center">
+				<p>we couldn't find the page you were looking for :(</p>
+			</div>
+		</>
 	);
 }
