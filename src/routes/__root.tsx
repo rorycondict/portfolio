@@ -56,7 +56,7 @@ export const Route = createRootRoute({
 			},
 			{
 				rel: "icon",
-				href: "/favicon.png",
+				href: "/favicon.webp",
 			},
 		],
 	}),
