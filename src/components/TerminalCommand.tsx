@@ -2,12 +2,17 @@ import { useEffect, useRef, useState } from "react";
 
 const UNSET = Symbol("unset");
 
+type QueueItem =
+	| { kind: "command"; text: string }
+	| { kind: "error"; text: string };
+
 export type TerminalCommandLine = {
 	id: number;
 	text: string;
 	path: string;
 	typed: number;
 	complete: boolean;
+	isError?: boolean;
 };
 
 export type TerminalCommandProps = {
@@ -58,7 +63,7 @@ export default function TerminalCommand({
 	error,
 }: TerminalCommandProps) {
 	const [lines, setLines] = useState<TerminalCommandLine[]>([]);
-	const [queue, setQueue] = useState<string[]>([]);
+	const [queue, setQueue] = useState<QueueItem[]>([]);
 	const [cwd, setCwd] = useState(initialPath);
 	const nextId = useRef(0);
 	const lastTrigger = useRef<unknown>(UNSET);
@@ -67,20 +72,34 @@ export default function TerminalCommand({
 		if (lastTrigger.current === trigger) return;
 		lastTrigger.current = trigger;
 		setCwd(initialPath);
-		setQueue((pending) => [...pending, ...commands]);
-	}, [commands, initialPath, trigger]);
+		setQueue((pending) => [
+			...pending,
+			...commands.map((text) => ({ kind: "command" as const, text })),
+			...(error ? [{ kind: "error" as const, text: error }] : []),
+		]);
+	}, [commands, initialPath, trigger, error]);
 
 	const active = lines.find((line) => !line.complete);
 
 	useEffect(() => {
 		if (active || queue.length === 0) return;
-		const [text, ...rest] = queue;
+		const [item, ...rest] = queue;
 		setQueue(rest);
 		const id = nextId.current++;
 		setLines((prev) =>
-			[...prev, { id, text, path: cwd, typed: 0, complete: false }].slice(
-				-bufferSize,
-			),
+			[
+				...prev,
+				item.kind === "command"
+					? { id, text: item.text, path: cwd, typed: 0, complete: false }
+					: {
+							id,
+							text: item.text,
+							path: cwd,
+							typed: item.text.length,
+							complete: true,
+							isError: true,
+						},
+			].slice(-bufferSize),
 		);
 	}, [active, cwd, queue, bufferSize]);
 
@@ -106,12 +125,8 @@ export default function TerminalCommand({
 		return () => clearTimeout(timer);
 	}, [active, cwd, typeSpeed]);
 
-	const showError =
-		Boolean(error) && !active && queue.length === 0 && lines.length > 0;
 	const slots = Array.from(
-		{
-			length: Math.max(0, bufferSize - lines.length - (showError ? 1 : 0)),
-		},
+		{ length: Math.max(0, bufferSize - lines.length) },
 		(_, i) => lines.length + i + 1,
 	);
 
@@ -120,19 +135,23 @@ export default function TerminalCommand({
 			className={`border-2 px-4 py-3 flex flex-col gap-1 text-sm ${className}`}
 			aria-live="polite"
 		>
-			{lines.map((line) => (
-				<p key={line.id} className="whitespace-pre-wrap break-all">
-					<span className={`mr-2 select-none ${promptClassName}`}>
-						{prompt(line.path)}$
-					</span>
-					<span>{line.text.slice(0, line.typed)}</span>
-					{!line.complete && <span className="terminal-caret" aria-hidden />}
-				</p>
-			))}
-			{showError && (
-				<p className="whitespace-pre-wrap break-all text-terminal-field">
-					{error}
-				</p>
+			{lines.map((line) =>
+				line.isError ? (
+					<p
+						key={line.id}
+						className="whitespace-pre-wrap break-all text-terminal-field"
+					>
+						{line.text}
+					</p>
+				) : (
+					<p key={line.id} className="whitespace-pre-wrap break-all">
+						<span className={`mr-2 select-none ${promptClassName}`}>
+							{prompt(line.path)}$
+						</span>
+						<span>{line.text.slice(0, line.typed)}</span>
+						{!line.complete && <span className="terminal-caret" aria-hidden />}
+					</p>
+				),
 			)}
 			{slots.map((slot) => (
 				<p key={`slot-${slot}`} aria-hidden className="invisible">
