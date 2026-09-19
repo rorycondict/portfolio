@@ -14,10 +14,7 @@ export default function Footer() {
 					&copy; {year} rory condict
 					<span className="text-terminal-field">.</span>
 				</p>
-				<p className="text-muted">
-					{/** biome-ignore lint/suspicious/noCommentText: intentional */}
-					// EOF
-				</p>
+				<p className="text-muted">EOF</p>
 			</div>
 		</footer>
 	);
