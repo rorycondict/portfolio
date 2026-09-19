@@ -47,4 +47,22 @@ export const PROJECTS: Project[] = [
 			},
 		],
 	},
+	{
+		name: "pearlcat",
+		description: "a mod for a game called 'rain world'.",
+		startedAt: "2023-08-10",
+		link: "TODO",
+		github: "https://github.com/rorycondict/pearlcat",
+		tools: ["Unity Engine", "MonoMod"],
+		languages: ["C# (Unity Engine)", "HLSL", "Python"],
+		updates: [
+			{
+				date: "2023-08-10",
+				title: "initial release",
+				summary: "TODO",
+				learned: "TODO",
+				toolingChanges: ["TODO"],
+			},
+		],
+	},
 ];

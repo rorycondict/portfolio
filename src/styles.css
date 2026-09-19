@@ -3,7 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font: "Consolas", ui-sans-serif, system-ui, sans-serif;
+  --font: "Consolas", monospace;
 }
 
 @theme inline {
@@ -204,5 +204,56 @@ pre code {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.terminal-reveal {
+  position: relative;
+}
+
+.terminal-reveal-content {
+  animation: terminal-reveal 420ms steps(10, end) both;
+}
+
+@keyframes terminal-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+.terminal-print-head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: var(--fg-highlight);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--fg-highlight) 60%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation:
+    terminal-print-head-move 420ms steps(10, end) both,
+    terminal-print-head-fade 420ms linear both;
+}
+
+@keyframes terminal-print-head-move {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 10px);
+  }
+}
+
+@keyframes terminal-print-head-fade {
+  0%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
