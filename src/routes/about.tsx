@@ -3,6 +3,7 @@ import { Fragment } from "react/jsx-runtime";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { formatTitle } from "@/utils";
 import IconLink from "../components/IconLink";
+import Separator from "../components/Separator";
 
 export const Route = createFileRoute("/about")({
 	head: () => ({
@@ -133,7 +134,7 @@ function About() {
 		<section className="flex flex-col">
 			<div className="mx-auto flex flex-col items-center">
 				<AsciiArt />
-				<div>{"-".repeat(40)}</div>
+				<Separator />
 				<TerminalFields />
 				<ColorPalette />
 			</div>

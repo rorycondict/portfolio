@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/IconLink";
+import Separator from "@/components/Separator";
 import { formatMonthYear, formatTitle } from "@/utils";
 import ProjectCard from "../components/ProjectCard";
 import { PROJECTS } from "../constants/projects";
@@ -39,7 +40,7 @@ function Projects() {
 					GitHub
 				</IconLink>
 
-				{"-".repeat(20)}
+				<Separator />
 			</div>
 
 			<ul className="relative flex flex-col gap-8 max-w-xl mx-auto w-full">

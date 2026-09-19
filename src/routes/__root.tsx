@@ -42,12 +42,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="flex h-screen flex-col overflow-hidden w-full max-w-4xl mx-auto py-30 font-sans antialiased wrap-anywhere px-8">
+			<body className="flex h-screen flex-col overflow-hidden w-full mx-auto py-30 font-sans antialiased wrap-anywhere px-8">
 				<Header />
-				<main className="min-h-0 flex-1 overflow-y-auto mx-auto w-full max-w-2xl my-5">
-					{children}
-				</main>
-				<Footer />
+				<div className="content-box flex-1 min-h-0 overflow-y-auto mx-auto w-full max-w-6xl my-5 p-5">
+					<main className="w-full">{children}</main>
+					<Footer />
+				</div>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
