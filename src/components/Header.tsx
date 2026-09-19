@@ -11,7 +11,7 @@ export default function Header() {
 	return (
 		<header className="sticky top-0 z-50 px-4">
 			<nav className="page-wrap relative flex items-center justify-center py-4">
-				<div className="flex flex-wrap items-center justify-center gap-x-5 text-md">
+				<div className="flex flex-wrap items-center justify-center gap-x-5 text-lg">
 					{links.map((link, i) => (
 						<Fragment key={link.to}>
 							<Link

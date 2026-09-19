@@ -1,10 +1,17 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Scripts,
+	useRouterState,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { formatTitle } from "@/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import RouteTransition from "../components/RouteTransition";
+import TerminalCommand from "../components/TerminalCommand";
+import { FALLBACK_COMMANDS, ROUTE_COMMANDS } from "../constants/terminal";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -37,14 +44,22 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="flex h-screen flex-col overflow-hidden w-full mx-auto py-25 font-sans antialiased wrap-anywhere">
+			<body className="flex h-screen flex-col overflow-hidden w-full mx-auto py-15 font-sans antialiased wrap-anywhere">
 				<Header />
+				<div className="mx-auto w-full max-w-6xl mt-5">
+					<TerminalCommand
+						commands={ROUTE_COMMANDS[pathname] ?? FALLBACK_COMMANDS}
+						trigger={pathname}
+					/>
+				</div>
 				<div className="p-8 content-box flex-1 min-h-0 overflow-y-auto mx-auto w-full max-w-6xl my-5 border-2">
 					<main className="w-full">
 						<RouteTransition>{children}</RouteTransition>

@@ -11,7 +11,9 @@
   --color-fg: var(--fg);
   --color-fg-highlight: var(--fg-highlight);
   --color-bg: var(--bg);
-  --color-terminal-field: var(--terminal-field)
+  --color-terminal-field: var(--terminal-field);
+  --color-terminal-important: var(--terminal-important);
+  --color-terminal-accent: var(--terminal-accent)
 }
 
 :root {
@@ -20,6 +22,8 @@
   --fg-highlight: #ffffff;
   --fg-muted: #5b5b5e;
   --terminal-field: #e74856;
+  --terminal-important: #16c60c;
+  --terminal-accent: #3b78ff;
 }
 
 * {
@@ -254,6 +258,22 @@ pre code {
     opacity: 1;
   }
   100% {
+    opacity: 0;
+  }
+}
+
+.terminal-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: -0.15em;
+  background: var(--fg-highlight);
+  animation: terminal-caret-blink 1.1s steps(1, end) infinite;
+}
+
+@keyframes terminal-caret-blink {
+  50% {
     opacity: 0;
   }
 }

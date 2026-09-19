@@ -11,7 +11,8 @@ export default function Footer() {
 					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
 						CC BY-NC-SA 4.0
 					</a>{" "}
-					&copy; {year} rory condict.
+					&copy; {year} rory condict
+					<span className="text-terminal-field">.</span>
 				</p>
 				<p className="text-muted">
 					{/** biome-ignore lint/suspicious/noCommentText: intentional */}
