@@ -2,6 +2,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import {
 	createRootRoute,
 	HeadContent,
+	Link,
 	Scripts,
 	useRouterState,
 } from "@tanstack/react-router";
@@ -11,7 +12,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import RouteTransition from "../components/RouteTransition";
 import TerminalCommand from "../components/TerminalCommand";
-import { FALLBACK_COMMANDS, ROUTE_COMMANDS } from "../constants/terminal";
+import { ROUTE_COMMANDS } from "../constants/terminal";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -45,6 +46,8 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
+	const commands = ROUTE_COMMANDS[pathname];
+	const target = pathname.replace(/^\//, "");
 
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -56,7 +59,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Header />
 				<div className="mx-auto w-full max-w-6xl mt-5">
 					<TerminalCommand
-						commands={ROUTE_COMMANDS[pathname] ?? FALLBACK_COMMANDS}
+						commands={commands ?? [`cd ~/${target}`]}
+						error={
+							commands
+								? undefined
+								: `-bash: cd: ${target}: No such file or directory`
+						}
 						trigger={pathname}
 					/>
 				</div>
@@ -88,7 +96,15 @@ function NotFound() {
 		<>
 			<title>{formatTitle("command not found")}</title>
 			<div className="flex flex-col gap-10 text-center">
-				<p>we couldn't find the page you were looking for :(</p>
+				<p className="text-xl">
+					we couldn't find the page you were looking for :(
+				</p>
+				<Link
+					to="/about"
+					className="text-terminal-accent underline underline-offset-4"
+				>
+					return to home
+				</Link>
 			</div>
 		</>
 	);

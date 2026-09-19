@@ -19,6 +19,7 @@ export type TerminalCommandProps = {
 	typeSpeed?: number;
 	className?: string;
 	promptClassName?: string;
+	error?: string;
 };
 
 const defaultPrompt = (path: string) => (
@@ -54,6 +55,7 @@ export default function TerminalCommand({
 	typeSpeed = 35,
 	className = "",
 	promptClassName = "",
+	error,
 }: TerminalCommandProps) {
 	const [lines, setLines] = useState<TerminalCommandLine[]>([]);
 	const [queue, setQueue] = useState<string[]>([]);
@@ -103,8 +105,13 @@ export default function TerminalCommand({
 		}, typeSpeed);
 		return () => clearTimeout(timer);
 	}, [active, cwd, typeSpeed]);
+
+	const showError =
+		Boolean(error) && !active && queue.length === 0 && lines.length > 0;
 	const slots = Array.from(
-		{ length: Math.max(0, bufferSize - lines.length) },
+		{
+			length: Math.max(0, bufferSize - lines.length - (showError ? 1 : 0)),
+		},
 		(_, i) => lines.length + i + 1,
 	);
 
@@ -122,6 +129,11 @@ export default function TerminalCommand({
 					{!line.complete && <span className="terminal-caret" aria-hidden />}
 				</p>
 			))}
+			{showError && (
+				<p className="whitespace-pre-wrap break-all text-terminal-field">
+					{error}
+				</p>
+			)}
 			{slots.map((slot) => (
 				<p key={`slot-${slot}`} aria-hidden className="invisible">
 					{"\u00a0"}
