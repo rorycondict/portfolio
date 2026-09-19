@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import RouteTransition from "../components/RouteTransition";
 import TerminalCommand from "../components/TerminalCommand";
+import { FULL_CHROME, type RouteChrome } from "../constants/chrome";
 import { SITE } from "../constants/site";
 import { ROUTE_COMMANDS } from "../constants/terminal";
 import appCss from "../styles.css?url";
@@ -64,10 +65,28 @@ export const Route = createRootRoute({
 	notFoundComponent: NotFound,
 });
 
+function useRouteChrome(): RouteChrome {
+	const overrides = useRouterState({
+		select: (s): Partial<RouteChrome>[] =>
+			s.matches.map((m) => m.staticData?.chrome ?? {}),
+	});
+
+	return { ...FULL_CHROME, ...Object.assign({}, ...overrides) };
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
+	const chrome = useRouteChrome();
 	const commands = ROUTE_COMMANDS[pathname];
 	const target = pathname.replace(/^\//, "");
+	const hasChrome = chrome.header || chrome.terminal || chrome.footer;
+
+	const content = (
+		<main className="w-full">
+			{children}
+			{chrome.footer && <Footer />}
+		</main>
+	);
 
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -75,25 +94,32 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script src="/theme-init.js" suppressHydrationWarning />
 				<HeadContent />
 			</head>
-			<body className="flex h-screen flex-col overflow-hidden w-full mx-auto py-15 font-sans antialiased wrap-anywhere">
-				<Header />
-				<div className="mx-auto w-full max-w-6xl mt-5">
-					<TerminalCommand
-						commands={commands ?? [`cd ~/${target}`]}
-						error={
-							commands
-								? undefined
-								: `-bash: cd: ${target}: No such file or directory`
-						}
-						trigger={pathname}
-					/>
-				</div>
-				<RouteTransition>
-					<main className="w-full">
-						{children}
-						<Footer />
-					</main>
-				</RouteTransition>
+			<body
+				className={
+					hasChrome
+						? "flex h-screen flex-col overflow-hidden w-full mx-auto py-15 font-sans antialiased wrap-anywhere"
+						: "w-full mx-auto font-sans antialiased wrap-anywhere"
+				}
+			>
+				{chrome.header && <Header />}
+				{chrome.terminal && (
+					<div className="mx-auto w-full max-w-6xl mt-5">
+						<TerminalCommand
+							commands={commands ?? [`cd ~/${target}`]}
+							error={
+								commands
+									? undefined
+									: `-bash: cd: ${target}: No such file or directory`
+							}
+							trigger={pathname}
+						/>
+					</div>
+				)}
+				{chrome.transition ? (
+					<RouteTransition>{content}</RouteTransition>
+				) : (
+					content
+				)}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
