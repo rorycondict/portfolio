@@ -1,6 +1,6 @@
 import { FaGithub } from "react-icons/fa";
 import type { Project } from "../constants/projects";
-import IconLink from "./IconLink";
+import IconLink from "./common/IconLink";
 
 export default function ProjectCard({ project }: { project: Project }) {
 	const { name, description, link, github, tools, languages } = project;

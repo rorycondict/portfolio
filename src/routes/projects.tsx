@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
-import IconLink from "@/components/IconLink";
-import Separator from "@/components/Separator";
+import IconLink from "@/components/common/IconLink";
+import Separator from "@/components/common/Separator";
 import { formatMonthYear, formatTitle } from "@/utils";
 import ProjectCard from "../components/ProjectCard";
 import { PROJECTS } from "../constants/projects";
