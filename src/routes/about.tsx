@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Fragment } from "react/jsx-runtime";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { formatTitle } from "@/utils";
 import IconLink from "../components/IconLink";
@@ -15,6 +16,12 @@ export const Route = createFileRoute("/about")({
 	}),
 	component: About,
 });
+
+const fields: [string, string][] = [
+	["Education", "University of Edinburgh"],
+	["Major", "BEng Computer Science"],
+	["Locale", "en_GB"],
+];
 
 function About() {
 	return (
@@ -44,9 +51,17 @@ function About() {
 `}
 					</pre>
 				</div>
-				<div>{"-".repeat(20)}</div>
+				<div>{"-".repeat(40)}</div>
+				<dl className="grid grid-cols-[auto_1fr] gap-x-3 text-sm">
+					{fields.map(([label, value]) => (
+						<Fragment key={label}>
+							<dt className="text-muted-foreground">{label}:</dt>
+							<dd>{value}</dd>
+						</Fragment>
+					))}
+				</dl>
 			</div>
-			<div className="flex flex-col pt-5 max-w-xl mx-auto w-full gap-10">
+			<div className="flex flex-col pt-15 max-w-xl mx-auto w-full gap-10">
 				<p>hey, I'm Rory.</p>
 
 				<p>

@@ -9,6 +9,8 @@
 @theme inline {
   --color-muted: var(--fg-muted);
   --color-fg: var(--fg);
+  --color-fg-highlight: var(--fg-highlight);
+  --color-bg: var(--bg);
 }
 
 :root {
