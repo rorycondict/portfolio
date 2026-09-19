@@ -61,25 +61,58 @@ body::after {
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
 }
 
+:root {
+  --scrollbar-width: 15px;
+  --scrollbar-track-bg: solid;
+  --scrollbar-track-border: none;
+  --scrollbar-thumb-bg: var(--fg);
+  --scrollbar-thumb-hover-bg: var(--fg-highlight);
+  --scrollbar-thumb-active-bg: var(--fg-highlight);
+  --scrollbar-thumb-radius: 0;
+  --scrollbar-thumb-border: 3px solid var(--bg);
+}
+
 .content-box {
-  scrollbar-width: thin;
-  scrollbar-color: var(--fg-highlight) transparent;
+  scrollbar-gutter: stable;
 }
 
 .content-box::-webkit-scrollbar {
-  width: 6px;
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
 }
 
 .content-box::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--scrollbar-track-bg);
+  border: var(--scrollbar-track-border);
 }
 
 .content-box::-webkit-scrollbar-thumb {
-  background-color: var(--fg);
+  background-color: var(--scrollbar-thumb-bg);
+  border-radius: var(--scrollbar-thumb-radius);
+  border: var(--scrollbar-thumb-border);
 }
 
 .content-box::-webkit-scrollbar-thumb:hover {
-  background-color: var(--fg);
+  background-color: var(--scrollbar-thumb-hover-bg);
+}
+
+.content-box::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active-bg);
+}
+
+.content-box::-webkit-scrollbar-button {
+  display: none;
+}
+
+.content-box::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track-bg);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .content-box {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-track-bg);
+  }
 }
 
 a {
