@@ -11,6 +11,7 @@
   --color-fg: var(--fg);
   --color-fg-highlight: var(--fg-highlight);
   --color-bg: var(--bg);
+  --color-terminal-field: var(--terminal-field)
 }
 
 :root {
@@ -18,6 +19,7 @@
   --fg: #bfc0c6;
   --fg-highlight: #ffffff;
   --fg-muted: #5b5b5e;
+  --terminal-field: #e74856;
 }
 
 * {
