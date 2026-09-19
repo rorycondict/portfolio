@@ -16,5 +16,14 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
-	return <div>wip :(</div>;
+	return (
+		<section className="flex flex-col gap-10 items-center">
+			<div className="text-center max-w-md w-full mx-auto flex flex-col items-center">
+				<h1 className="pb-3">
+					you can reach me at{" "}
+					<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
+				</h1>
+			</div>
+		</section>
+	);
 }

@@ -4,7 +4,7 @@ import { Fragment } from "react";
 const links = [
 	{ to: "/about", label: "about" },
 	{ to: "/projects", label: "projects" },
-	// { to: "/contact", label: "contact" },
+	{ to: "/contact", label: "contact" },
 ];
 
 export default function Header() {
