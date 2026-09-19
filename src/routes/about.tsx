@@ -142,7 +142,7 @@ function About() {
 				<p>hey, I'm Rory.</p>
 
 				<p>
-					I like software; currently studying CS as an undergrad. I'm pursuing
+					I like software. currently studying CS as an undergrad - I'm pursuing
 					ML and cybersecurity in particular.
 				</p>
 

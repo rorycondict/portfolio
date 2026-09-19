@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import RouteTransition from "../components/RouteTransition";
 import TerminalCommand from "../components/TerminalCommand";
+import { SITE } from "../constants/site";
 import { ROUTE_COMMANDS } from "../constants/terminal";
 import appCss from "../styles.css?url";
 
@@ -26,8 +27,27 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "rory:~$ whoami",
+				title: "ssh rory@portfolio",
 			},
+			{ name: "description", content: SITE.description },
+
+			{ property: "og:title", content: "rory condict's portfolio." },
+			{
+				property: "og:description",
+				content: SITE.description,
+			},
+			{
+				property: "og:url",
+				content: SITE.url,
+			},
+			{ property: "og:image", content: SITE.image },
+			{ property: "og:type", content: "website" },
+
+			{ name: "twitter:card", content: "summary_large_image" },
+			{ name: "twitter:title", content: "rory condict's portfolio." },
+			{ name: "twitter:description", content: SITE.description },
+			{ name: "twitter:url", content: SITE.url },
+			{ name: "twitter:image", content: SITE.image },
 		],
 		links: [
 			{
@@ -94,7 +114,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 function NotFound() {
 	return (
 		<>
-			<title>{formatTitle("command not found")}</title>
+			<title>{formatTitle("no such directory")}</title>
 			<div className="flex flex-col gap-10 text-center">
 				<p className="text-xl">
 					we couldn't find the page you were looking for :(

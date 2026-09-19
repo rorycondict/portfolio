@@ -8,7 +8,7 @@ export const Route = createFileRoute("/contact")({
 			{
 				name: "description",
 				content:
-					"here you can reach out to me with a question, offer, or just to have a quick chat.",
+					"reach out to me with a question, offer, or just to have a quick chat.",
 			},
 		],
 	}),
