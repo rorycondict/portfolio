@@ -216,7 +216,7 @@ pre code {
 }
 
 .terminal-reveal-content {
-  animation: terminal-reveal 420ms steps(10, end) both;
+  animation: terminal-reveal 600ms steps(10, end) both;
 }
 
 @keyframes terminal-reveal {
@@ -240,7 +240,7 @@ pre code {
   pointer-events: none;
   animation:
     terminal-print-head-move 420ms steps(10, end) both,
-    terminal-print-head-fade 420ms linear both;
+    terminal-print-head-fade 450ms linear both;
 }
 
 @keyframes terminal-print-head-move {

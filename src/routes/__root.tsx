@@ -68,12 +68,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 						trigger={pathname}
 					/>
 				</div>
-				<div className="p-8 content-box flex-1 min-h-0 overflow-y-auto mx-auto w-full max-w-6xl my-5 border-2">
+				<RouteTransition>
 					<main className="w-full">
-						<RouteTransition>{children}</RouteTransition>
+						{children}
+						<Footer />
 					</main>
-					<Footer />
-				</div>
+				</RouteTransition>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
