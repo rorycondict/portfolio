@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 				{tools.map((t) => (
 					<li
 						key={t}
-						className="text-muted text-xs border border-line rounded px-2 py-0.5"
+						className="text-muted text-xs border border-line px-2 py-0.5"
 					>
 						{t}
 					</li>
@@ -35,7 +35,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 				{languages.map((t) => (
 					<li
 						key={t}
-						className="text-muted text-xs border border-line rounded px-2 py-0.5"
+						className="text-muted text-xs border border-line px-2 py-0.5"
 					>
 						{t}
 					</li>
