@@ -2,13 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import Separator from "@/components/common/Separator";
-import { formatMonthYear, formatTitle } from "@/utils";
-import ProjectCard from "../components/ProjectCard";
+import { formatTitle } from "@/utils";
+import ProjectTimeline from "../components/ProjectTimeline";
 import { PROJECTS } from "../constants/projects";
-
-const sortedProjects = [...PROJECTS].sort((a, b) =>
-	b.startedAt.localeCompare(a.startedAt),
-);
 
 export const Route = createFileRoute("/projects")({
 	head: () => ({
@@ -43,21 +39,9 @@ function Projects() {
 				<Separator />
 			</div>
 
-			<ul className="relative flex flex-col gap-8 max-w-xl mx-auto w-full">
-				<div
-					aria-hidden
-					className="absolute top-3 bottom-3 left-1.75 w-px bg-line"
-				/>
+			<ProjectTimeline projects={PROJECTS} />
 
-				{sortedProjects.map((project) => (
-					<li key={project.name} className="relative pl-8">
-						<p className="text-muted text-xs pb-2">
-							{formatMonthYear(project.startedAt)}
-						</p>
-						<ProjectCard project={project} />
-					</li>
-				))}
-			</ul>
+			<p className="text-sm text-muted">oh, that's everything? :(</p>
 		</section>
 	);
 }
