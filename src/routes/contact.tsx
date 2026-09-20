@@ -170,9 +170,9 @@ function ContactForm() {
 			<button
 				type="submit"
 				disabled={status === "sending"}
-				className="text-md self-start cursor-pointer text-terminal-accent hover:text-fg-highlight disabled:opacity-50 disabled:cursor-not-allowed"
+				className="text-md self-start cursor-pointer text-terminal-accent underline decoration-terminal-accent/25 decoration-2 underline-offset-4 transition-colors duration-300 hover:text-fg-highlight hover:decoration-fg-highlight disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline"
 			>
-				$ {status === "sending" ? "sending..." : "./send"}
+				$ {status === "sending" ? "sending..." : "./send -f email.txt"}
 			</button>
 		</form>
 	);
@@ -190,7 +190,7 @@ function Contact() {
 				<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
 			</p>
 
-			<p className="pb-5">alternatively, use the contact form below:</p>
+			<p className="pb-5">alternatively, just use the contact form below:</p>
 
 			<ContactForm />
 		</section>

@@ -27,7 +27,7 @@ export const PROJECTS: Project[] = [
 		startedAt: "2026-08-02",
 		link: "https://rorycondict.com",
 		github: "https://github.com/rorycondict/portfolio",
-		tools: ["TanStack Start", "React", "Tailwind CSS", "Cloudflare Workers"],
+		tools: ["TanStack Start", "Cloudflare Workers"],
 		languages: ["TypeScript", "JSX (React)", "CSS"],
 		updates: [
 			{
@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
 		ongoing: true,
 		link: "TODO",
 		github: "https://github.com/rorycondict/pearlcat",
-		tools: ["Unity Engine", "MonoMod"],
+		tools: ["Unity Engine", "MonoMod", "dnSpy"],
 		languages: ["C#", "HLSL", "Python"],
 		updates: [
 			{

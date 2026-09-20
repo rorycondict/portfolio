@@ -37,7 +37,7 @@ const terminalColors: [string, string][] = [
 
 function AsciiArt() {
 	return (
-		<div className="flex flex-wrap justify-center">
+		<div className="flex flex-wrap justify-center tracking-wide">
 			<pre className="ascii-art text-[8px] md:text-[10px] md:pr-5 pb-3">
 				{`
 

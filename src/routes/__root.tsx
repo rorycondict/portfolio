@@ -141,8 +141,9 @@ function NotFound() {
 	return (
 		<>
 			<title>{formatTitle("no such directory")}</title>
-			<div className="flex flex-col gap-10 text-center">
-				<p className="text-xl">
+			<div className="flex flex-col gap-3 text-center">
+				<h1 className="text-3xl text-terminal-field pb-10">404: not found</h1>
+				<p className="text-lg">
 					we couldn't find the page you were looking for :(
 				</p>
 				<Link
