@@ -3,10 +3,10 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import type { Project, ProjectUpdate } from "../constants/projects";
 import { formatMonthYear } from "../utils";
 
-// Change this value to make the timeline date-proportional in a future iteration.
-const TIMELINE_STEP = 360;
+const TIMELINE_STEP = 300;
 const LANE_GAP = 28;
 const TRACK_PADDING = 28;
+
 const RAIL_COLORS = [
 	"var(--terminal-important)",
 	"var(--terminal-accent)",
@@ -26,6 +26,7 @@ function buildTimelineEvents(projects: Project[]): TimelineEvent[] {
 	const lanes = new Map(
 		projects.map((project, index) => [project.name, index]),
 	);
+
 	const updates = projects
 		.flatMap((project) =>
 			project.updates.map((update) => ({
@@ -36,6 +37,7 @@ function buildTimelineEvents(projects: Project[]): TimelineEvent[] {
 			})),
 		)
 		.sort((a, b) => b.update.date.localeCompare(a.update.date));
+
 	const ongoingHeaders = projects
 		.filter((project) => project.ongoing)
 		.map((project) => {
@@ -51,20 +53,23 @@ function buildTimelineEvents(projects: Project[]): TimelineEvent[] {
 			};
 		})
 		.sort((a, b) => b.update.date.localeCompare(a.update.date));
+
 	return [...ongoingHeaders, ...updates];
 }
 
 function ProjectOverview({ project }: { project: Project }) {
 	return (
-		<>
+		<div>
 			<div className="flex items-start justify-between gap-3">
 				<h2 className="mt-1 text-lg text-fg-highlight">{project.name}</h2>
+
 				<div className="flex gap-3 text-sm">
-					{project.link && project.link !== "TODO" && (
+					{project.link && (
 						<a href={project.link} aria-label={`Open ${project.name}`}>
 							<FaExternalLinkAlt aria-hidden size={14} />
 						</a>
 					)}
+
 					{project.github && (
 						<a
 							href={project.github}
@@ -75,7 +80,9 @@ function ProjectOverview({ project }: { project: Project }) {
 					)}
 				</div>
 			</div>
+
 			<p className="mt-3 text-sm leading-6">{project.description}</p>
+
 			<div className="mt-4 space-y-2 text-xs">
 				<div className="flex flex-wrap items-center gap-2">
 					<span className="text-terminal-accent">tools:</span>
@@ -85,6 +92,7 @@ function ProjectOverview({ project }: { project: Project }) {
 						</span>
 					))}
 				</div>
+
 				<div className="flex flex-wrap items-center gap-2">
 					<span className="text-terminal-accent">languages:</span>
 					{project.languages.map((item) => (
@@ -94,7 +102,7 @@ function ProjectOverview({ project }: { project: Project }) {
 					))}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 
@@ -107,11 +115,14 @@ function UpdateDetails({ update }: { update: ProjectUpdate }) {
 				</time>
 				<h3 className="text-fg-highlight">{update.title}</h3>
 			</div>
+
 			<p className="mt-2 leading-6">{update.summary}</p>
+
 			<p className="mt-2 leading-6 text-muted">
 				<span className="text-terminal-accent">learned: </span>
 				{update.learned}
 			</p>
+
 			{update.toolingChanges && update.toolingChanges.length > 0 && (
 				<ul className="mt-3 flex flex-wrap gap-2">
 					{update.toolingChanges.map((change) => (
@@ -130,6 +141,7 @@ function UpdateDetails({ update }: { update: ProjectUpdate }) {
 
 export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 	const events = useMemo(() => buildTimelineEvents(projects), [projects]);
+
 	const projectRanges = useMemo(
 		() =>
 			projects.map((project, lane) => {
@@ -146,6 +158,7 @@ export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 			}),
 		[events, projects],
 	);
+
 	const trackWidth = TRACK_PADDING * 2 + projects.length * LANE_GAP;
 
 	return (
@@ -161,6 +174,7 @@ export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 			<p className="mb-7 text-center text-xs text-muted">
 				scroll down through project history
 			</p>
+
 			<div className="git-track" aria-hidden="true">
 				{projectRanges.map(({ lane, first, last }) =>
 					first === undefined || last === undefined ? null : (
@@ -175,11 +189,7 @@ export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 									"--project-rail": RAIL_COLORS[lane % RAIL_COLORS.length],
 								} as React.CSSProperties
 							}
-						>
-							{projects[lane]?.ongoing && (
-								<span className="git-ongoing">ongoing</span>
-							)}
-						</div>
+						/>
 					),
 				)}
 			</div>
@@ -195,10 +205,7 @@ export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 							(earlierEvent) =>
 								earlierEvent.project.name === event.project.name,
 						);
-					const isYearMilestone =
-						index === 0 ||
-						new Date(events[index - 1].update.date).getUTCFullYear() !==
-							new Date(event.update.date).getUTCFullYear();
+
 					return (
 						<li
 							key={event.id}
@@ -211,19 +218,16 @@ export default function ProjectTimeline({ projects }: { projects: Project[] }) {
 								} as React.CSSProperties
 							}
 						>
-							{isYearMilestone && (
-								<time className="git-year" dateTime={event.update.date}>
-									{new Date(event.update.date).getUTCFullYear()}
-								</time>
-							)}
 							<span className="git-node" aria-hidden="true" />
 							<span className="git-branch" aria-hidden="true" />
+
 							<article
 								className={`git-card ${isLatestProjectUpdate ? "git-card-primary" : "git-card-secondary"}`}
 							>
 								{isLatestProjectUpdate && (
 									<ProjectOverview project={event.project} />
 								)}
+
 								<div
 									className={isLatestProjectUpdate ? "" : "git-update-compact"}
 								>

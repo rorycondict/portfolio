@@ -355,12 +355,12 @@ pre code {
 }
 
 .git-card-primary {
-  border: 2px solid var(--project-rail);
+  border: 1px solid var(--project-rail);
   padding: 1.25rem;
 }
 
 .git-card-secondary {
-  max-width: 38rem;
+  max-width: 40rem;
   border-color: color-mix(in oklab, var(--project-rail) 55%, var(--fg-muted));
 }
 
