@@ -28,11 +28,11 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "ssh rory@portfolio",
+				title: SITE.title,
 			},
 			{ name: "description", content: SITE.description },
 
-			{ property: "og:title", content: "rory condict's portfolio." },
+			{ property: "og:title", content: SITE.title },
 			{
 				property: "og:description",
 				content: SITE.description,
@@ -45,7 +45,7 @@ export const Route = createRootRoute({
 			{ property: "og:type", content: "website" },
 
 			{ name: "twitter:card", content: "summary_large_image" },
-			{ name: "twitter:title", content: "rory condict's portfolio." },
+			{ name: "twitter:title", content: SITE.title },
 			{ name: "twitter:description", content: SITE.description },
 			{ name: "twitter:url", content: SITE.url },
 			{ name: "twitter:image", content: SITE.image },

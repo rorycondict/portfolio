@@ -287,11 +287,10 @@ pre code {
 
 .git-lane {
   position: absolute;
+  width: 1px;
   top: var(--lane-top);
   left: var(--lane-left);
-  width: 3px;
   height: var(--lane-height);
-  border-radius: 999px;
   background: var(--project-rail);
 }
 
@@ -341,7 +340,7 @@ pre code {
   top: 24px;
   left: var(--lane-left);
   width: calc(var(--track-width) - var(--lane-left));
-  height: 3px;
+  height: 1px;
   background: var(--project-rail);
   opacity: 0.78;
 }
