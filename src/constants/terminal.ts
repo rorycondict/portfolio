@@ -4,3 +4,7 @@ export const ROUTE_COMMANDS: Record<string, string[]> = {
 	"/projects": ["ls projects/"],
 	"/contact": ["nano email.txt"],
 };
+
+export function normalizeRoutePath(pathname: string) {
+	return pathname.replace(/\/+$/, "") || "/";
+}
