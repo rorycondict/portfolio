@@ -42,7 +42,7 @@ function PromptField({
 	onChange,
 }: PromptFieldProps) {
 	return (
-		<label className="flex flex-row items-baseline gap-1 text-sm w-full cursor-text">
+		<label className="flex flex-wrap items-baseline gap-1 text-sm w-full cursor-text">
 			<span className="text-terminal-important uppercase shrink-0 min-w-[8ch]">
 				{label}=
 			</span>
@@ -75,7 +75,7 @@ function MessageField({
 		<div className="flex flex-col gap-1 text-sm w-full">
 			<label
 				htmlFor="message"
-				className="flex flex-row items-baseline gap-x-2 cursor-text"
+				className="flex flex-wrap items-baseline gap-x-2 cursor-text"
 			>
 				<span className="text-terminal-important shrink-0">$MESSAGE=</span>
 				<span className="text-fg">"</span>

@@ -37,8 +37,8 @@ const terminalColors: [string, string][] = [
 
 function AsciiArt() {
 	return (
-		<div className="flex flex-wrap justify-center tracking-wide">
-			<pre className="ascii-art text-[8px] md:text-[10px] md:pr-5 pb-3">
+		<div className="ascii-fit flex w-full flex-wrap justify-center">
+			<pre className="ascii-art md:pr-5 pb-3">
 				{`
 
 ░██░████  ░███████  ░██░████ ░██    ░██
@@ -49,7 +49,7 @@ function AsciiArt() {
                                     ░██
                               ░███████`}
 			</pre>
-			<pre className="ascii-art text-[8px] md:text-[10px] ">
+			<pre className="ascii-art">
 				{`                                       ░██  ░██             ░██
                                        ░██                  ░██
  ░███████   ░███████  ░████████   ░████████ ░██ ░███████  ░████████
@@ -132,7 +132,7 @@ function SocialLinks() {
 function About() {
 	return (
 		<section className="flex flex-col">
-			<div className="mx-auto flex flex-col items-center">
+			<div className="mx-auto flex w-full flex-col items-center">
 				<AsciiArt />
 				<Separator />
 				<TerminalFields />
