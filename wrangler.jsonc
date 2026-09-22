@@ -1,11 +1,9 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio",
-  "compatibility_date": "2026-08-31",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  },
+  "compatibility_date": "2026-09-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
   "routes": [
     {
       "pattern": "rorycondict.com",
