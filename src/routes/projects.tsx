@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import Separator from "@/components/common/Separator";
-import ProjectTimeline from "@/components/project/ProjectTimeline";
+import ProjectBrowser from "@/components/project/ProjectBrowser";
 import { formatTitle } from "@/utils";
 
 export const Route = createFileRoute("/projects")({
@@ -38,9 +38,13 @@ function Projects() {
 				<Separator />
 			</div>
 
-			<ProjectTimeline />
-
-			<p className="text-sm text-muted">oh, that's everything? :(</p>
+			<ProjectBrowser
+				footer={
+					<p className="mt-4 self-center text-[10px] text-muted">
+						oh, that's everything? :(
+					</p>
+				}
+			/>
 		</section>
 	);
 }

@@ -13,3 +13,11 @@ export function formatMonthYear(isoDate: string) {
 export function isExternalUrl(value?: string): value is string {
 	return /^https?:\/\//.test(value ?? "");
 }
+
+export function formatDateRange(from: string, to?: string) {
+	const start = formatMonthYear(from);
+	if (!to) return `${start} - Present`;
+
+	const end = formatMonthYear(to);
+	return start === end ? start : `${start} - ${end}`;
+}
