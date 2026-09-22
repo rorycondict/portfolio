@@ -4,13 +4,11 @@
   "compatibility_date": "2026-09-14",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  // www is handled by a Cloudflare redirect rule (301 to the apex), which owns
+  // its DNS record -- binding it here as a custom domain conflicts with that.
   "routes": [
     {
       "pattern": "rorycondict.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.rorycondict.com",
       "custom_domain": true
     }
   ]
