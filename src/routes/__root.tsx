@@ -14,7 +14,7 @@ import RouteTransition from "../components/RouteTransition";
 import TerminalCommand from "../components/TerminalCommand";
 import { FULL_CHROME, type RouteChrome } from "../constants/chrome";
 import { SITE } from "../constants/site";
-import { ROUTE_COMMANDS } from "../constants/terminal";
+import { normalizeRoutePath, ROUTE_COMMANDS } from "../constants/terminal";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -77,8 +77,9 @@ function useRouteChrome(): RouteChrome {
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const chrome = useRouteChrome();
-	const commands = ROUTE_COMMANDS[pathname];
-	const target = pathname.replace(/^\//, "");
+	const route = normalizeRoutePath(pathname);
+	const commands = ROUTE_COMMANDS[route];
+	const target = route.replace(/^\//, "");
 	const hasChrome = chrome.header || chrome.terminal || chrome.footer;
 
 	const content = (
@@ -111,7 +112,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 									? undefined
 									: `-bash: cd: ${target}: No such file or directory`
 							}
-							trigger={pathname}
+							trigger={route}
 						/>
 					</div>
 				)}
