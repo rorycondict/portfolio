@@ -9,3 +9,7 @@ export function formatMonthYear(isoDate: string) {
 		year: "numeric",
 	});
 }
+
+export function isExternalUrl(value?: string): value is string {
+	return /^https?:\/\//.test(value ?? "");
+}

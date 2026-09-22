@@ -9,95 +9,40 @@ export type ProjectUpdate = {
 export type Project = {
 	name: string;
 	description: string;
-	startedAt: string;
-	endedAt?: string;
-	ongoing?: boolean;
+	date: string;
 	link?: string;
-	github?: string;
+	source?: string;
 	tools: string[];
 	languages: string[];
-	updates: ProjectUpdate[];
 };
 
 export const PROJECTS: Project[] = [
 	{
-		name: "portfolio",
+		name: "portfolio_website",
 		description:
 			"this site. built with the TanStack Start framework, hosted on Cloudflare Workers.",
-		startedAt: "2026-08-02",
+		date: "2026-08-02",
 		link: "https://rorycondict.com",
-		github: "https://github.com/rorycondict/portfolio",
-		tools: ["TanStack Start", "Cloudflare Workers"],
+		source: "https://github.com/rorycondict/portfolio",
+		tools: ["TanStack Start", "Cloudflare Workers", "Wrangler CLI", "Biome"],
 		languages: ["TypeScript", "JSX (React)", "CSS"],
-		updates: [
-			{
-				date: "2026-08-02",
-				title: "initial release",
-				summary:
-					"basic React site, deployed on Cloudflare Workers via Wrangler CLI",
-				learned: "TODO",
-				toolingChanges: ["+ Cloudflare Workers", "+ Wrangler CLI"],
-			},
-			{
-				date: "2026-09-14",
-				title: "TanStack Start + SSR",
-				summary:
-					"migrated to TanStack Start with SSR, deployed to Cloudflare Workers.",
-				learned: "SEO relies heavily on SSR, hence the move to TanStack Start.",
-				toolingChanges: ["- npm", "+ Bun", "+ TanStack Start"],
-			},
-		],
+	},
+	{
+		name: "evp_website",
+		description: "website for Edinburgh VenturePoint.",
+		date: "2026-05-05",
+		link: "https://edinburghventurepoint.com",
+		source: "https://github.com/rorycondict/evp-website",
+		tools: ["React", "FastAPI", "Vite", "Bun"],
+		languages: ["TypeScript", "JSX (React)", "CSS", "Python"],
 	},
 	{
 		name: "pearlcat",
-		description:
-			"a mod for a game called 'rain world'. my first big project, something around 35k lines of code.",
-		startedAt: "2023-08-10",
-		ongoing: true,
+		description: "a mod for a game called 'rain world'.",
+		date: "2023-08-10",
 		link: "TODO",
-		github: "https://github.com/rorycondict/pearlcat",
+		source: "https://github.com/rorycondict/pearlcat",
 		tools: ["Unity Engine", "MonoMod", "dnSpy"],
 		languages: ["C#", "HLSL", "Python"],
-		updates: [
-			{
-				date: "2023-08-10",
-				title: "1.1",
-				summary: "TODO",
-				learned: "TODO",
-				toolingChanges: ["TODO"],
-			},
-			{
-				date: "2023-08-10",
-				title: "initial release",
-				summary: "TODO",
-				learned: "TODO",
-				toolingChanges: ["TODO"],
-			},
-		],
-	},
-	{
-		name: "evp website",
-		description: "website for Edinburgh VenturePoint.",
-		startedAt: "2026-05-05",
-		link: "TODO",
-		github: "https://github.com/rorycondict/pearlcat",
-		tools: ["React", "FastAPI", "Vite"],
-		languages: ["TypeScript", "JSX (React)", "CSS", "Python"],
-		updates: [
-			{
-				date: "2026-05-05",
-				title: "initial release",
-				summary: "TODO",
-				learned: "TODO",
-				toolingChanges: ["TODO"],
-			},
-			{
-				date: "2026-09-10",
-				title: "version 2",
-				summary: "TODO",
-				learned: "TODO",
-				toolingChanges: ["TODO"],
-			},
-		],
 	},
 ];
