@@ -8,10 +8,6 @@
     {
       "pattern": "rorycondict.com",
       "custom_domain": true
-    },
-    {
-      "pattern": "www.rorycondict.com",
-      "custom_domain": true
     }
   ]
 }
