@@ -132,7 +132,7 @@ function SocialLinks() {
 function About() {
 	return (
 		<section className="flex flex-col">
-			<div className="mx-auto flex w-full flex-col items-center">
+			<div className="flex w-full flex-col items-center">
 				<AsciiArt />
 				<Separator />
 				<TerminalFields />

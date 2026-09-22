@@ -155,18 +155,13 @@ pre code {
   margin-inline: auto;
 }
 
-.app-shell {
-  height: 100vh;
-  height: 100dvh;
-}
-
 .ascii-fit {
   container-type: inline-size;
 }
 
 .ascii-art {
   --ascii-cols: 71;
-  --ascii-max: 12px;
+  --ascii-max: 8px;
   --ascii-slack: 1rem;
   font-family: "JetBrains Mono", "Consolas", monospace;
   letter-spacing: 0.025em;

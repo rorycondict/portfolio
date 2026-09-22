@@ -75,7 +75,7 @@ function MessageField({
 		<div className="flex flex-col gap-1 text-sm w-full">
 			<label
 				htmlFor="message"
-				className="flex flex-wrap items-baseline gap-x-2 cursor-text"
+				className="flex flex-wrap items-baseline gap-x-2 gap-y-1 cursor-text"
 			>
 				<span className="text-terminal-important shrink-0">$MESSAGE=</span>
 				<span className="text-fg">"</span>
