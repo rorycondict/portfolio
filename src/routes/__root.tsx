@@ -93,7 +93,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			>
 				{chrome.header && <Header />}
 				{chrome.terminal && (
-					<div className="mx-auto w-full max-w-6xl mt-5">
+					<div className="mx-auto w-full max-w-4xl mt-5">
 						<TerminalCommand
 							commands={[page?.command ?? `cd ~/${target}`]}
 							error={
