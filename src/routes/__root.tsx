@@ -87,8 +87,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body
 				className={
 					hasChrome
-						? "flex h-dvh flex-col overflow-hidden w-full mx-auto py-5 font-sans antialiased wrap-anywhere"
-						: "w-full mx-auto font-sans antialiased wrap-anywhere"
+						? "flex h-dvh flex-col overflow-hidden w-full mx-auto py-5 antialiased wrap-anywhere"
+						: "w-full mx-auto antialiased wrap-anywhere"
 				}
 			>
 				{chrome.header && <Header />}
