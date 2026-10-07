@@ -9,12 +9,11 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import RouteTransition from "@/components/RouteTransition";
-import TerminalCommand from "@/components/TerminalCommand";
+import TerminalWindow from "@/components/TerminalWindow";
 import { FULL_CHROME, type RouteChrome } from "@/content/chrome";
-import { findPage, SITE } from "@/content/site";
+import { SITE } from "@/content/site";
 import appCss from "@/styles.css?url";
-import { formatTitle, normalizePath } from "@/utils";
+import { formatTitle } from "@/utils";
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -64,12 +63,7 @@ function useRouteChrome(): RouteChrome {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const chrome = useRouteChrome();
-	const route = normalizePath(pathname);
-	const page = findPage(route);
-	const target = route.replace(/^\//, "");
-	const hasChrome = chrome.header || chrome.terminal || chrome.footer;
 
 	const content = (
 		<main className="w-full">
@@ -85,31 +79,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body
-				className={
-					hasChrome
-						? "flex h-dvh flex-col overflow-hidden w-full mx-auto py-5 antialiased wrap-anywhere"
-						: "w-full mx-auto antialiased wrap-anywhere"
-				}
+				className={`w-full mx-auto antialiased wrap-anywhere ${
+					chrome.terminal ? "flex h-dvh flex-col overflow-hidden py-5" : ""
+				}`}
 			>
 				{chrome.header && <Header />}
-				{chrome.terminal && (
-					<div className="mx-auto w-full max-w-4xl mt-5">
-						<TerminalCommand
-							commands={[page?.command ?? `cd ~/${target}`]}
-							error={
-								page
-									? undefined
-									: `-bash: cd: ${target}: No such file or directory`
-							}
-							trigger={route}
-						/>
-					</div>
-				)}
-				{chrome.transition ? (
-					<RouteTransition>{content}</RouteTransition>
-				) : (
-					content
-				)}
+				{chrome.terminal ? <TerminalWindow>{content}</TerminalWindow> : content}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
