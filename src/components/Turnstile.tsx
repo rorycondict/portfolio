@@ -34,15 +34,18 @@ type Status =
 	| "unavailable";
 
 const STATUS_LINES: Record<Status, { text: string; className: string }> = {
-	verifying: { text: "# checking you're human...", className: "text-muted" },
+	verifying: { text: "# checking for bots...", className: "text-muted" },
 	interactive: { text: "# one quick check:", className: "text-muted" },
-	verified: { text: "# human verified.", className: "text-terminal-important" },
+	verified: {
+		text: "# you're human, I think...",
+		className: "text-terminal-important",
+	},
 	failed: {
-		text: "# verification failed, retrying...",
+		text: "# bot check failed, retrying...",
 		className: "text-terminal-field",
 	},
 	unavailable: {
-		text: "# couldn't load the spam check. try emailing me instead.",
+		text: "# couldn't load the bot check. try emailing me instead.",
 		className: "text-terminal-field",
 	},
 };
