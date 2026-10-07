@@ -16,13 +16,22 @@
 }
 
 :root {
-  --bg: #0a0b0f;
-  --fg: #bfc0c6;
-  --fg-highlight: #ffffff;
-  --fg-muted: #5b5b5e;
-  --terminal-field: #e74856;
-  --terminal-important: #16c60c;
-  --terminal-accent: #3b78ff;
+  color-scheme: light dark;
+  --bg: light-dark(#f4f4ef, #0a0b0f);
+  --fg: light-dark(#2b2c30, #bfc0c6);
+  --fg-highlight: light-dark(#000000, #ffffff);
+  --fg-muted: light-dark(#6b6b70, #5b5b5e);
+  --terminal-field: light-dark(#c50f1f, #e74856);
+  --terminal-important: light-dark(#0b7a08, #16c60c);
+  --terminal-accent: light-dark(#0037da, #3b78ff);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 html,

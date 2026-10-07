@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Fragment } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { NAV_PAGES } from "@/content/site";
 
 export default function Header() {
@@ -7,7 +8,7 @@ export default function Header() {
 		<header className="sticky top-0 z-50 px-4 order-last md:order-first">
 			<nav className="page-wrap relative flex items-center justify-center py-4">
 				<div className="flex flex-wrap items-center justify-center gap-x-5 text-lg">
-					{NAV_PAGES.map((page, i) => (
+					{NAV_PAGES.map((page) => (
 						<Fragment key={page.path}>
 							<Link
 								to={page.path}
@@ -16,11 +17,10 @@ export default function Header() {
 							>
 								{page.label}
 							</Link>
-							{i < NAV_PAGES.length - 1 && (
-								<span className="select-none opacity-60">·</span>
-							)}
+							<span className="select-none opacity-60">·</span>
 						</Fragment>
 					))}
+					<ThemeToggle />
 				</div>
 			</nav>
 		</header>
