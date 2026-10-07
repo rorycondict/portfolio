@@ -184,6 +184,39 @@ a:hover {
   position: relative;
 }
 
+.scroll-fade {
+  --scroll-fade: 1rem;
+  padding: var(--scroll-fade);
+}
+
+@media (width >= 48rem) {
+  .scroll-fade {
+    --scroll-fade: 2rem;
+  }
+}
+
+.scroll-fade::before,
+.scroll-fade::after {
+  content: "";
+  position: sticky;
+  z-index: 1;
+  flex-shrink: 0;
+  height: var(--scroll-fade);
+  pointer-events: none;
+}
+
+.scroll-fade::before {
+  top: 0;
+  margin-top: calc(-1 * var(--scroll-fade));
+  background: linear-gradient(var(--bg), transparent);
+}
+
+.scroll-fade::after {
+  bottom: 0;
+  margin-bottom: calc(-1 * var(--scroll-fade));
+  background: linear-gradient(transparent, var(--bg));
+}
+
 .terminal-reveal-content {
   animation: terminal-reveal 600ms steps(10, end) both;
 }
@@ -205,6 +238,7 @@ a:hover {
   height: 10px;
   background: var(--fg-highlight);
   box-shadow: 0 0 10px color-mix(in oklab, var(--fg-highlight) 60%, transparent);
+  z-index: 2;
   opacity: 0;
   pointer-events: none;
   animation:
