@@ -1,6 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const UNSET = Symbol("unset");
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+	const query = window.matchMedia(REDUCED_MOTION);
+	query.addEventListener("change", onChange);
+	return () => query.removeEventListener("change", onChange);
+}
+
+function usePrefersReducedMotion() {
+	return useSyncExternalStore(
+		subscribeReducedMotion,
+		() => window.matchMedia(REDUCED_MOTION).matches,
+		() => false,
+	);
+}
 
 type QueueItem =
 	| { kind: "command"; text: string }
@@ -67,6 +82,7 @@ export default function TerminalCommand({
 	const [cwd, setCwd] = useState(initialPath);
 	const nextId = useRef(0);
 	const lastTrigger = useRef<unknown>(UNSET);
+	const reducedMotion = usePrefersReducedMotion();
 
 	useEffect(() => {
 		if (lastTrigger.current === trigger) return;
@@ -115,15 +131,23 @@ export default function TerminalCommand({
 			);
 			return;
 		}
-		const timer = setTimeout(() => {
-			setLines((prev) =>
-				prev.map((line) =>
-					line.id === active.id ? { ...line, typed: line.typed + 1 } : line,
-				),
-			);
-		}, typeSpeed);
+		const timer = setTimeout(
+			() => {
+				setLines((prev) =>
+					prev.map((line) =>
+						line.id === active.id
+							? {
+									...line,
+									typed: reducedMotion ? line.text.length : line.typed + 1,
+								}
+							: line,
+					),
+				);
+			},
+			reducedMotion ? 0 : typeSpeed,
+		);
 		return () => clearTimeout(timer);
-	}, [active, cwd, typeSpeed]);
+	}, [active, cwd, typeSpeed, reducedMotion]);
 
 	const slots = Array.from(
 		{ length: Math.max(0, bufferSize - lines.length) },

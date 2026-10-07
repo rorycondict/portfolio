@@ -246,3 +246,15 @@ a:hover {
     opacity: 0;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-reveal-content,
+  .terminal-print-head,
+  .terminal-caret {
+    animation: none;
+  }
+
+  .nav-link::after {
+    transition: none;
+  }
+}
