@@ -16,13 +16,13 @@ yeah it's my portfolio site. that's about it.
 
 ## secrets
 
-| name                      | where                                   | notes                                  |
-| ------------------------- | --------------------------------------- | -------------------------------------- |
-| `RESEND_API_KEY`          | `.dev.vars` / `wrangler secret put`     |                                        |
-| `TURNSTILE_SECRET_KEY`    | `.dev.vars` / `wrangler secret put`     |                                        |
-| `VITE_TURNSTILE_SITE_KEY` | `.env.local` / GitHub Actions variable  | public, baked in at build time         |
+| name                   | where                               | notes                                                     |
+| ---------------------- | ----------------------------------- | --------------------------------------------------------- |
+| `RESEND_API_KEY`       | `.dev.vars` / `wrangler secret put` |                                                           |
+| `TURNSTILE_SECRET_KEY` | `.dev.vars` / `wrangler secret put` |                                                           |
+| `TURNSTILE_HOSTNAMES`  | `wrangler.jsonc` vars / `.dev.vars` | `rorycondict.com` in prod, `localhost,127.0.0.1` locally  |
 
-locally, Cloudflare's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) work: the site key falls back to the always-pass one if unset.
+the Turnstile site key is public and lives in `src/content/turnstile.ts`.
 
 ## scripts
 

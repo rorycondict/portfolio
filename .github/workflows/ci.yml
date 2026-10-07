@@ -28,8 +28,6 @@ jobs:
 
       - name: Build
         run: bun run build
-        env:
-          VITE_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
 
       - name: Upload Build
         if: github.ref == 'refs/heads/main'

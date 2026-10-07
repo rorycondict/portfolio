@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
+import { TURNSTILE } from "@/content/turnstile";
 import { resolveTheme } from "@/theme";
 
 const SCRIPT_SRC =
 	"https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-const TEST_SITE_KEY = "1x00000000000000000000AA";
-const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || TEST_SITE_KEY;
 
 type TurnstileOptions = {
 	sitekey: string;
@@ -65,7 +64,7 @@ export default function Turnstile({
 			.then(() => {
 				if (cancelled || !container.current || !window.turnstile) return;
 				widgetId = window.turnstile.render(container.current, {
-					sitekey: SITE_KEY,
+					sitekey: TURNSTILE.siteKey,
 					action,
 					theme: resolveTheme(),
 					callback: (token) => callbacks.current.onToken(token),
