@@ -7,7 +7,7 @@ export default function Footer() {
 
 	return (
 		<footer className="text-sm flex flex-col max-w-2xl w-full pt-20 justify-between">
-			<Separator md={45} />
+			<Separator length={36} />
 			<div className="flex flex-col">
 				<p>
 					<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">

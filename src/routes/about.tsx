@@ -126,7 +126,7 @@ function About() {
 		<section className="flex flex-col">
 			<div className="flex w-full flex-col items-start">
 				<AsciiArt />
-				<Separator />
+				<Separator length={30} />
 				<TerminalFields />
 				<ColorPalette />
 			</div>
