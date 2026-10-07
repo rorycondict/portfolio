@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
-import Separator from "@/components/common/Separator";
 import ProjectBrowser from "@/components/project/ProjectBrowser";
 import { PAGES, pageHead } from "@/content/site";
 
@@ -25,8 +24,6 @@ function Projects() {
 				>
 					GitHub
 				</IconLink>
-
-				<Separator />
 			</div>
 
 			<ProjectBrowser
