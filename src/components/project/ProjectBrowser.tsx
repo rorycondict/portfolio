@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from "react";
 import ProjectFilter from "@/components/project/ProjectFilter";
 import ProjectTimeline from "@/components/project/ProjectTimeline";
-import { PROJECTS, type Project } from "@/constants/projects";
+import { PROJECTS, type Project } from "@/content/projects";
 
 function normalize(value: string) {
 	return value.toLowerCase().replace(/[\s_]+/g, " ");

@@ -11,9 +11,9 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import RouteTransition from "@/components/RouteTransition";
 import TerminalCommand from "@/components/TerminalCommand";
-import { FULL_CHROME, type RouteChrome } from "@/constants/chrome";
-import { SITE } from "@/constants/site";
-import { normalizeRoutePath, ROUTE_COMMANDS } from "@/constants/terminal";
+import { FULL_CHROME, type RouteChrome } from "@/content/chrome";
+import { SITE } from "@/content/site";
+import { normalizeRoutePath, ROUTE_COMMANDS } from "@/content/terminal";
 import appCss from "@/styles.css?url";
 import { formatTitle } from "@/utils";
 
