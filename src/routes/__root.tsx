@@ -12,10 +12,9 @@ import Header from "@/components/Header";
 import RouteTransition from "@/components/RouteTransition";
 import TerminalCommand from "@/components/TerminalCommand";
 import { FULL_CHROME, type RouteChrome } from "@/content/chrome";
-import { SITE } from "@/content/site";
-import { normalizeRoutePath, ROUTE_COMMANDS } from "@/content/terminal";
+import { findPage, SITE } from "@/content/site";
 import appCss from "@/styles.css?url";
-import { formatTitle } from "@/utils";
+import { formatTitle, normalizePath } from "@/utils";
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -27,27 +26,17 @@ export const Route = createRootRoute({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1",
 			},
-			{
-				title: SITE.title,
-			},
 			{ name: "description", content: SITE.description },
 
-			{ property: "og:title", content: SITE.title },
-			{
-				property: "og:description",
-				content: SITE.description,
-			},
-			{
-				property: "og:url",
-				content: SITE.url,
-			},
+			{ property: "og:site_name", content: SITE.name },
+			{ property: "og:title", content: SITE.name },
+			{ property: "og:description", content: SITE.description },
 			{ property: "og:image", content: SITE.image },
 			{ property: "og:type", content: "website" },
 
 			{ name: "twitter:card", content: "summary_large_image" },
-			{ name: "twitter:title", content: SITE.title },
+			{ name: "twitter:title", content: SITE.name },
 			{ name: "twitter:description", content: SITE.description },
-			{ name: "twitter:url", content: SITE.url },
 			{ name: "twitter:image", content: SITE.image },
 		],
 		links: [
@@ -77,8 +66,8 @@ function useRouteChrome(): RouteChrome {
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const chrome = useRouteChrome();
-	const route = normalizeRoutePath(pathname);
-	const commands = ROUTE_COMMANDS[route];
+	const route = normalizePath(pathname);
+	const page = findPage(route);
 	const target = route.replace(/^\//, "");
 	const hasChrome = chrome.header || chrome.terminal || chrome.footer;
 
@@ -106,9 +95,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				{chrome.terminal && (
 					<div className="mx-auto w-full max-w-6xl mt-5">
 						<TerminalCommand
-							commands={commands ?? [`cd ~/${target}`]}
+							commands={[page?.command ?? `cd ~/${target}`]}
 							error={
-								commands
+								page
 									? undefined
 									: `-bash: cd: ${target}: No such file or directory`
 							}

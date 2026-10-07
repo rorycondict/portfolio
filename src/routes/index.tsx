@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { PAGES, pageHead } from "@/content/site";
 
 export const Route = createFileRoute("/")({
 	beforeLoad: () => {
@@ -8,9 +9,7 @@ export const Route = createFileRoute("/")({
 			statusCode: 307,
 		});
 	},
-	head: () => ({
-		meta: [],
-	}),
+	head: () => pageHead(PAGES.home),
 	component: App,
 });
 

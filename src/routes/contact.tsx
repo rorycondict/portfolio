@@ -1,18 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { formatTitle } from "@/utils";
+import { PAGES, pageHead } from "@/content/site";
 
 export const Route = createFileRoute("/contact")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("ping rory") },
-			{
-				name: "description",
-				content:
-					"reach out to me with a question, offer, or just to have a quick chat.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.contact),
 	component: Contact,
 });
 

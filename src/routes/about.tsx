@@ -3,18 +3,10 @@ import { Fragment } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import Separator from "@/components/common/Separator";
-import { formatTitle } from "@/utils";
+import { PAGES, pageHead } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("whoami") },
-			{
-				name: "description",
-				content: "learn a bit more about me, my interests, and my hobbies.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.about),
 	component: About,
 });
 

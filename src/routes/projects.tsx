@@ -3,19 +3,10 @@ import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import Separator from "@/components/common/Separator";
 import ProjectBrowser from "@/components/project/ProjectBrowser";
-import { formatTitle } from "@/utils";
+import { PAGES, pageHead } from "@/content/site";
 
 export const Route = createFileRoute("/projects")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("ls projects/") },
-			{
-				name: "description",
-				content:
-					"browse the projects I've created, contributed to, or am currently maintaining.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.projects),
 	component: Projects,
 });
 
