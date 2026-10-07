@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Turnstile from "@/components/Turnstile";
 import { PAGES, pageHead } from "@/content/site";
+import { TURNSTILE } from "@/content/turnstile";
 
 export const Route = createFileRoute("/contact")({
 	head: () => pageHead(PAGES.contact),
@@ -163,6 +164,7 @@ function ContactForm() {
 
 			<Turnstile
 				key={widgetKey}
+				action={TURNSTILE.actions.contact}
 				onToken={setToken}
 				onLoadError={() =>
 					setError("couldn't load the spam check. try emailing me instead.")

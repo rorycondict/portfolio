@@ -8,6 +8,7 @@ const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || TEST_SITE_KEY;
 
 type TurnstileOptions = {
 	sitekey: string;
+	action?: string;
 	theme?: "light" | "dark" | "auto";
 	callback?: (token: string) => void;
 	"expired-callback"?: () => void;
@@ -42,11 +43,16 @@ function loadTurnstile() {
 }
 
 type TurnstileProps = {
+	action: string;
 	onToken: (token: string | null) => void;
 	onLoadError: () => void;
 };
 
-export default function Turnstile({ onToken, onLoadError }: TurnstileProps) {
+export default function Turnstile({
+	action,
+	onToken,
+	onLoadError,
+}: TurnstileProps) {
 	const container = useRef<HTMLDivElement>(null);
 	const callbacks = useRef({ onToken, onLoadError });
 	callbacks.current = { onToken, onLoadError };
@@ -60,6 +66,7 @@ export default function Turnstile({ onToken, onLoadError }: TurnstileProps) {
 				if (cancelled || !container.current || !window.turnstile) return;
 				widgetId = window.turnstile.render(container.current, {
 					sitekey: SITE_KEY,
+					action,
 					theme: resolveTheme(),
 					callback: (token) => callbacks.current.onToken(token),
 					"expired-callback": () => callbacks.current.onToken(null),
@@ -74,7 +81,7 @@ export default function Turnstile({ onToken, onLoadError }: TurnstileProps) {
 			cancelled = true;
 			if (widgetId) window.turnstile?.remove(widgetId);
 		};
-	}, []);
+	}, [action]);
 
-	return <div ref={container} className="min-h-[65px]" />;
+	return <div ref={container} className="min-h-16.25" />;
 }

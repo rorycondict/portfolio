@@ -4,6 +4,9 @@
   "compatibility_date": "2026-09-14",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  "vars": {
+    "TURNSTILE_HOSTNAMES": "rorycondict.com"
+  },
   "ratelimits": [
     {
       "name": "CONTACT_RATE_LIMITER",
