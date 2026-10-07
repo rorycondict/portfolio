@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import IconLink from "@/components/common/IconLink";
+import Separator from "@/components/common/Separator";
 import { formatTitle } from "@/utils";
-import IconLink from "../components/common/IconLink";
-import Separator from "../components/common/Separator";
 
 export const Route = createFileRoute("/about")({
 	head: () => ({

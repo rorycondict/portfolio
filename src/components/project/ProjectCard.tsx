@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
+import ProjectPreview from "@/components/project/ProjectPreview";
 import type { Project } from "@/constants/projects";
 import { formatDateRange, isExternalUrl } from "@/utils";
-import ProjectPreview from "./ProjectPreview";
 
 type MetaRowProps = {
 	label: string;

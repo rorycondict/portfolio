@@ -1,4 +1,4 @@
-import Separator from "./common/Separator";
+import Separator from "@/components/common/Separator";
 
 export default function Footer() {
 	const year = new Date().getFullYear();

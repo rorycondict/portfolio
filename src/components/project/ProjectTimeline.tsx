@@ -1,5 +1,5 @@
+import ProjectCard from "@/components/project/ProjectCard";
 import { PROJECTS, type Project } from "@/constants/projects";
-import ProjectCard from "./ProjectCard";
 
 type ProjectSection = {
 	label: string;
