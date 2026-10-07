@@ -157,18 +157,31 @@ export default function TerminalCommand({
 	return (
 		<div
 			className={`border-2 px-4 py-3 flex flex-col gap-1 text-sm ${className}`}
-			aria-live="polite"
 		>
+			<div className="sr-only" aria-live="polite">
+				{lines
+					.filter((line) => line.complete)
+					.map((line) => (
+						<p key={line.id}>
+							{line.isError ? line.text : `${line.path}$ ${line.text}`}
+						</p>
+					))}
+			</div>
 			{lines.map((line) =>
 				line.isError ? (
 					<p
 						key={line.id}
+						aria-hidden
 						className="whitespace-pre-wrap break-all text-terminal-field"
 					>
 						{line.text}
 					</p>
 				) : (
-					<p key={line.id} className="whitespace-pre-wrap break-all">
+					<p
+						key={line.id}
+						aria-hidden
+						className="whitespace-pre-wrap break-all"
+					>
 						<span className={`mr-2 select-none ${promptClassName}`}>
 							{prompt(line.path)}$
 						</span>
