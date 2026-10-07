@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TURNSTILE } from "@/content/turnstile";
 import { resolveTheme } from "@/theme";
 
@@ -9,9 +9,12 @@ type TurnstileOptions = {
 	sitekey: string;
 	action?: string;
 	theme?: "light" | "dark" | "auto";
+	appearance?: "always" | "execute" | "interaction-only";
 	callback?: (token: string) => void;
 	"expired-callback"?: () => void;
 	"error-callback"?: () => void;
+	"before-interactive-callback"?: () => void;
+	"after-interactive-callback"?: () => void;
 };
 
 declare global {
@@ -22,6 +25,27 @@ declare global {
 		};
 	}
 }
+
+type Status =
+	| "verifying"
+	| "interactive"
+	| "verified"
+	| "failed"
+	| "unavailable";
+
+const STATUS_LINES: Record<Status, { text: string; className: string }> = {
+	verifying: { text: "# checking you're human...", className: "text-muted" },
+	interactive: { text: "# one quick check:", className: "text-muted" },
+	verified: { text: "# human verified.", className: "text-terminal-important" },
+	failed: {
+		text: "# verification failed, retrying...",
+		className: "text-terminal-field",
+	},
+	unavailable: {
+		text: "# couldn't load the spam check. try emailing me instead.",
+		className: "text-terminal-field",
+	},
+};
 
 let scriptPromise: Promise<void> | undefined;
 
@@ -44,17 +68,13 @@ function loadTurnstile() {
 type TurnstileProps = {
 	action: string;
 	onToken: (token: string | null) => void;
-	onLoadError: () => void;
 };
 
-export default function Turnstile({
-	action,
-	onToken,
-	onLoadError,
-}: TurnstileProps) {
+export default function Turnstile({ action, onToken }: TurnstileProps) {
 	const container = useRef<HTMLDivElement>(null);
-	const callbacks = useRef({ onToken, onLoadError });
-	callbacks.current = { onToken, onLoadError };
+	const onTokenRef = useRef(onToken);
+	onTokenRef.current = onToken;
+	const [status, setStatus] = useState<Status>("verifying");
 
 	useEffect(() => {
 		let widgetId: string | undefined;
@@ -67,13 +87,25 @@ export default function Turnstile({
 					sitekey: TURNSTILE.siteKey,
 					action,
 					theme: resolveTheme(),
-					callback: (token) => callbacks.current.onToken(token),
-					"expired-callback": () => callbacks.current.onToken(null),
-					"error-callback": () => callbacks.current.onToken(null),
+					appearance: "interaction-only",
+					callback: (token) => {
+						setStatus("verified");
+						onTokenRef.current(token);
+					},
+					"expired-callback": () => {
+						setStatus("verifying");
+						onTokenRef.current(null);
+					},
+					"error-callback": () => {
+						setStatus("failed");
+						onTokenRef.current(null);
+					},
+					"before-interactive-callback": () => setStatus("interactive"),
+					"after-interactive-callback": () => setStatus("verifying"),
 				});
 			})
 			.catch(() => {
-				if (!cancelled) callbacks.current.onLoadError();
+				if (!cancelled) setStatus("unavailable");
 			});
 
 		return () => {
@@ -82,5 +114,14 @@ export default function Turnstile({
 		};
 	}, [action]);
 
-	return <div ref={container} className="min-h-16.25" />;
+	const line = STATUS_LINES[status];
+
+	return (
+		<div className="flex flex-col gap-2 text-sm">
+			<p className={line.className} aria-live="polite">
+				{line.text}
+			</p>
+			<div ref={container} />
+		</div>
+	);
 }

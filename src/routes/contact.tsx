@@ -166,9 +166,6 @@ function ContactForm() {
 				key={widgetKey}
 				action={TURNSTILE.actions.contact}
 				onToken={setToken}
-				onLoadError={() =>
-					setError("couldn't load the spam check. try emailing me instead.")
-				}
 			/>
 
 			{error ? <p className="text-terminal-field">{error}</p> : null}
