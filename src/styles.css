@@ -46,7 +46,7 @@ body {
 }
 
 :root {
-  --scrollbar-width: 15px;
+  --scrollbar-width: 10px;
   --scrollbar-track-bg: transparent;
   --scrollbar-track-border: none;
   --scrollbar-thumb-bg: var(--fg);
@@ -191,7 +191,7 @@ a:hover {
 
 @media (width >= 48rem) {
   .scroll-fade {
-    --scroll-fade: 2rem;
+    --scroll-fade: 1rem;
   }
 }
 
