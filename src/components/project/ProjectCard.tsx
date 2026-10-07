@@ -103,10 +103,10 @@ export default function ProjectCard({
 	const edge = featured ? "border-fg/50" : "border-muted/60";
 
 	return (
-		<article className={`border ${edge} transition-colors hover:border-fg`}>
+		<article className={`border ${edge} transition-colors`}>
 			<header className={`flex flex-col gap-1 border-b ${edge} px-4 py-2`}>
 				<div className="flex items-baseline justify-between gap-4">
-					<h3 className="text-terminal-accent">
+					<h3 className="text-xl text-terminal-accent">
 						{featured && (
 							<span aria-hidden="true" className="text-terminal-important">
 								*
