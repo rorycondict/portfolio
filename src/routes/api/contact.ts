@@ -13,6 +13,16 @@ export const Route = createFileRoute("/api/contact")({
 	server: {
 		handlers: {
 			POST: async ({ request }) => {
+				const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+				const { success } = await env.CONTACT_RATE_LIMITER.limit({ key: ip });
+
+				if (!success) {
+					return Response.json(
+						"Too many messages. Please try again in a minute.",
+						{ status: 429 },
+					);
+				}
+
 				let body: ContactBody;
 
 				try {
