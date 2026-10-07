@@ -12,6 +12,17 @@ yeah it's my portfolio site. that's about it.
 - **[Bun](https://bun.sh)**
 - **[Cloudflare Workers](https://workers.cloudflare.com)** (deployed with [Wrangler](https://developers.cloudflare.com/workers/wrangler/))
 - **[Resend](https://resend.com)** for the contact form
+- **[Turnstile](https://developers.cloudflare.com/turnstile/)** and [Workers rate limiting](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/) to keep spam out of it
+
+## secrets
+
+| name                      | where                                   | notes                                  |
+| ------------------------- | --------------------------------------- | -------------------------------------- |
+| `RESEND_API_KEY`          | `.dev.vars` / `wrangler secret put`     |                                        |
+| `TURNSTILE_SECRET_KEY`    | `.dev.vars` / `wrangler secret put`     |                                        |
+| `VITE_TURNSTILE_SITE_KEY` | `.env.local` / GitHub Actions variable  | public, baked in at build time         |
+
+locally, Cloudflare's [test keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/) work: the site key falls back to the always-pass one if unset.
 
 ## scripts
 

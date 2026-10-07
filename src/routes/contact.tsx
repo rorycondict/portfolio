@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import Turnstile from "@/components/Turnstile";
 import { PAGES, pageHead } from "@/content/site";
 
 export const Route = createFileRoute("/contact")({
@@ -94,6 +95,8 @@ function ContactForm() {
 	const [message, setMessage] = useState("");
 	const [status, setStatus] = useState<Status>("idle");
 	const [error, setError] = useState<string | null>(null);
+	const [token, setToken] = useState<string | null>(null);
+	const [widgetKey, setWidgetKey] = useState(0);
 
 	async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -104,7 +107,7 @@ function ContactForm() {
 			const response = await fetch("/api/contact", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ name, email, message }),
+				body: JSON.stringify({ name, email, message, token }),
 			});
 
 			if (!response.ok) {
@@ -118,6 +121,8 @@ function ContactForm() {
 		} catch (err) {
 			setStatus("error");
 			setError(err instanceof Error ? err.message : "failed to send message.");
+			setToken(null);
+			setWidgetKey((key) => key + 1);
 		}
 	}
 
@@ -156,11 +161,19 @@ function ContactForm() {
 
 			<MessageField value={message} onChange={setMessage} />
 
+			<Turnstile
+				key={widgetKey}
+				onToken={setToken}
+				onLoadError={() =>
+					setError("couldn't load the spam check. try emailing me instead.")
+				}
+			/>
+
 			{error ? <p className="text-terminal-field">{error}</p> : null}
 
 			<button
 				type="submit"
-				disabled={status === "sending"}
+				disabled={status === "sending" || !token}
 				className="self-start cursor-pointer text-terminal-accent underline decoration-terminal-accent/25 decoration-2 underline-offset-4 transition-colors duration-300 hover:text-fg-highlight hover:decoration-fg-highlight disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline"
 			>
 				$ {status === "sending" ? "sending..." : "./send -f email.txt"}

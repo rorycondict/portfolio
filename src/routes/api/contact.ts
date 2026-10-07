@@ -7,14 +7,33 @@ interface ContactBody {
 	name?: string;
 	email?: string;
 	message?: string;
+	token?: string;
+}
+
+async function verifyTurnstile(token: string, ip: string | null) {
+	const form = new FormData();
+	form.append("secret", env.TURNSTILE_SECRET_KEY);
+	form.append("response", token);
+	if (ip) form.append("remoteip", ip);
+
+	const response = await fetch(
+		"https://challenges.cloudflare.com/turnstile/v0/siteverify",
+		{ method: "POST", body: form },
+	);
+	if (!response.ok) return false;
+
+	const outcome = (await response.json()) as { success: boolean };
+	return outcome.success;
 }
 
 export const Route = createFileRoute("/api/contact")({
 	server: {
 		handlers: {
 			POST: async ({ request }) => {
-				const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
-				const { success } = await env.CONTACT_RATE_LIMITER.limit({ key: ip });
+				const ip = request.headers.get("cf-connecting-ip");
+				const { success } = await env.CONTACT_RATE_LIMITER.limit({
+					key: ip ?? "unknown",
+				});
 
 				if (!success) {
 					return Response.json(
@@ -46,6 +65,18 @@ export const Route = createFileRoute("/api/contact")({
 						"Message is too long. Maximum 5000 characters.",
 						{ status: 400 },
 					);
+				}
+
+				if (!body.token) {
+					return Response.json("Please complete the verification.", {
+						status: 400,
+					});
+				}
+
+				if (!(await verifyTurnstile(body.token, ip))) {
+					return Response.json("Verification failed. Please try again.", {
+						status: 403,
+					});
 				}
 
 				const resend = new Resend(env.RESEND_API_KEY);
