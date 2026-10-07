@@ -129,7 +129,7 @@ function ContactForm() {
 
 	if (status === "sent") {
 		return (
-			<div className="flex flex-col items-center gap-3">
+			<div className="flex flex-col items-start gap-3">
 				<p className="text-terminal-important border p-2">message sent.</p>
 				<p>thanks for reaching out!</p>
 			</div>
@@ -183,8 +183,8 @@ function ContactForm() {
 
 function Contact() {
 	return (
-		<section className="flex flex-col gap-3 items-center">
-			<div className="text-center max-w-md w-full mx-auto flex flex-col items-center">
+		<section className="flex flex-col gap-3 items-start">
+			<div className="max-w-md w-full flex flex-col items-start">
 				<h1>I'm always open to chat!</h1>
 			</div>
 

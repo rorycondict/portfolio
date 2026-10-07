@@ -12,8 +12,8 @@ export const Route = createFileRoute("/projects")({
 
 function Projects() {
 	return (
-		<section className="flex flex-col gap-10 items-center">
-			<div className="text-center max-w-md w-full mx-auto flex flex-col items-center">
+		<section className="flex flex-col gap-10 items-start">
+			<div className="max-w-md w-full flex flex-col items-start">
 				<h1 className="pb-3">
 					these are projects that I've created, contributed to, or am currently
 					maintaining.
@@ -31,7 +31,7 @@ function Projects() {
 
 			<ProjectBrowser
 				footer={
-					<p className="mt-4 self-center text-[10px] text-muted">
+					<p className="mt-4 self-start text-[10px] text-muted">
 						oh, that's everything? :(
 					</p>
 				}

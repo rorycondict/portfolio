@@ -29,7 +29,7 @@ const terminalColors: [string, string][] = [
 
 function AsciiArt() {
 	return (
-		<div className="ascii-fit flex w-full flex-wrap justify-center">
+		<div className="ascii-fit flex w-full flex-wrap justify-start">
 			<pre className="ascii-art md:pr-5 pb-3">
 				{`
 
@@ -124,13 +124,13 @@ function SocialLinks() {
 function About() {
 	return (
 		<section className="flex flex-col">
-			<div className="flex w-full flex-col items-center">
+			<div className="flex w-full flex-col items-start">
 				<AsciiArt />
 				<Separator />
 				<TerminalFields />
 				<ColorPalette />
 			</div>
-			<div className="flex flex-col pt-15 max-w-xl mx-auto w-full gap-10">
+			<div className="flex flex-col pt-15 max-w-xl w-full gap-10">
 				<p>hey, I'm Rory.</p>
 
 				<p>

@@ -6,7 +6,7 @@ export default function Footer() {
 	const year = hydrated ? new Date().getFullYear() : __BUILD_YEAR__;
 
 	return (
-		<footer className="text-sm text-center flex flex-col max-w-2xl w-full mx-auto pt-20 justify-between">
+		<footer className="text-sm flex flex-col max-w-2xl w-full pt-20 justify-between">
 			<Separator md={45} />
 			<div className="flex flex-col">
 				<p>
