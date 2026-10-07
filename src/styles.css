@@ -38,7 +38,7 @@ body {
 
 :root {
   --scrollbar-width: 15px;
-  --scrollbar-track-bg: solid;
+  --scrollbar-track-bg: transparent;
   --scrollbar-track-border: none;
   --scrollbar-thumb-bg: var(--fg);
   --scrollbar-thumb-hover-bg: var(--fg-highlight);
