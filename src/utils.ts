@@ -11,6 +11,7 @@ export function formatMonthYear(isoDate: string) {
 	return new Date(isoDate).toLocaleDateString("en-US", {
 		month: "short",
 		year: "numeric",
+		timeZone: "UTC",
 	});
 }
 
