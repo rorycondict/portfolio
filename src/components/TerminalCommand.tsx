@@ -155,9 +155,7 @@ export default function TerminalCommand({
 	);
 
 	return (
-		<div
-			className={`border-2 px-4 py-3 flex flex-col gap-1 text-sm ${className}`}
-		>
+		<div className={`px-4 py-3 flex flex-col gap-1 text-sm ${className}`}>
 			<div className="sr-only" aria-live="polite">
 				{lines
 					.filter((line) => line.complete)
