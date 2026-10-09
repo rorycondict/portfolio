@@ -49,7 +49,7 @@ function App() {
 					className="splash-enter text-2xl md:text-xl"
 				>
 					<span aria-hidden>
-						<span className="text-terminal-command">{program}</span> {args}
+						<span className="text-terminal-field">{program}</span> {args}
 						<span className="terminal-caret" />
 					</span>
 				</Link>
