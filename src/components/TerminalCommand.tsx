@@ -149,6 +149,8 @@ export default function TerminalCommand({
 		return () => clearTimeout(timer);
 	}, [active, cwd, typeSpeed, reducedMotion]);
 
+	const currentId = lines.filter((line) => !line.isError).at(-1)?.id;
+
 	const slots = Array.from(
 		{ length: Math.max(0, bufferSize - lines.length) },
 		(_, i) => lines.length + i + 1,
@@ -184,7 +186,9 @@ export default function TerminalCommand({
 							{prompt(line.path)}$
 						</span>
 						<span>{line.text.slice(0, line.typed)}</span>
-						{!line.complete && <span className="terminal-caret" aria-hidden />}
+						{line.id === currentId && (
+							<span className="terminal-caret" aria-hidden />
+						)}
 					</p>
 				),
 			)}

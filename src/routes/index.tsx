@@ -46,14 +46,14 @@ function App() {
 				<Link
 					to={PAGES.about.path}
 					aria-label="enter site"
-					className="splash-enter text-3xl no-underline md:text-2xl"
+					className="splash-enter text-2xl no-underline md:text-xl"
 				>
 					<span aria-hidden>
 						<span className="text-terminal-command">{program}</span> {args}
 						<span className="terminal-caret" />
 					</span>
 				</Link>
-				<p aria-hidden className="text-md md:text-xs text-muted">
+				<p aria-hidden className="text-sm md:text-xs text-muted">
 					(enter the site)
 				</p>
 			</div>
