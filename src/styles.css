@@ -12,7 +12,8 @@
   --color-bg: var(--bg);
   --color-terminal-field: var(--terminal-field);
   --color-terminal-important: var(--terminal-important);
-  --color-terminal-accent: var(--terminal-accent)
+  --color-terminal-accent: var(--terminal-accent);
+  --color-terminal-command: var(--terminal-command);
 }
 
 :root {
@@ -24,6 +25,7 @@
   --terminal-field: light-dark(#c50f1f, #e74856);
   --terminal-important: light-dark(#0b7a08, #16c60c);
   --terminal-accent: light-dark(#0037da, #3b78ff);
+  --terminal-command: light-dark(#8a6d00, #f9f1a5);
 }
 
 :root[data-theme="light"] {
@@ -141,6 +143,23 @@ a:hover {
     --ascii-max: 10px;
     --ascii-slack: 2rem;
   }
+}
+
+.ascii-art.splash-logo {
+  --ascii-cols: 23;
+  --ascii-max: 24px;
+  --ascii-slack: 0px;
+  line-height: 1.2;
+}
+
+.splash-enter {
+  color: var(--fg);
+  transition: color 170ms ease;
+}
+
+.splash-enter:hover,
+.splash-enter:focus-visible {
+  color: var(--fg-highlight);
 }
 
 .nav-link {
