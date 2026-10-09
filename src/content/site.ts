@@ -8,7 +8,6 @@ export const SITE = {
 	image: "https://rorycondict.com/preview.png",
 };
 
-// schema.org Person, so search engines can tie the site to my profiles
 const PERSON = {
 	"@type": "Person",
 	"@id": `${SITE.url}/#person`,
