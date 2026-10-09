@@ -5,7 +5,9 @@ import {
 } from "@tanstack/react-start";
 import headersFile from "../public/_headers?raw";
 
-const SECURITY_HEADERS = parseHeadersRules(headersFile, "/*");
+const SECURITY_HEADERS = parseHeadersRules(headersFile, "/*").filter(
+	([name]) => !(import.meta.env.DEV && name === "Content-Security-Policy"),
+);
 
 function parseHeadersRules(file: string, path: string) {
 	const headers: [string, string][] = [];
