@@ -25,13 +25,13 @@
 
 :root {
   color-scheme: light dark;
-  --bg: light-dark(#f4f4ef, #0a0b0f);
-  --fg: light-dark(#2b2c30, #bfc0c6);
+  --bg: light-dark(#ffffff, #0a0b0f);
+  --fg: light-dark(#4d4d4c, #bfc0c6);
   --fg-highlight: light-dark(#000000, #ffffff);
-  --fg-muted: light-dark(#6b6b70, #5b5b5e);
-  --terminal-field: light-dark(#c50f1f, #e74856);
-  --terminal-important: light-dark(#0b7a08, #16c60c);
-  --terminal-accent: light-dark(#0037da, #3b78ff);
+  --fg-muted: light-dark(#8e908c, #5b5b5e);
+  --terminal-field: light-dark(#c82829, #e74856);
+  --terminal-important: light-dark(#718c00, #16c60c);
+  --terminal-accent: light-dark(#4271ae, #3b78ff);
 }
 
 :root[data-theme="light"] {
