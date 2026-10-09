@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { TbBrandGithub, TbBrandLinkedin } from "react-icons/tb";
 
 export type Social = {
 	label: string;
@@ -11,12 +11,12 @@ export const SOCIALS = {
 	github: {
 		label: "GitHub",
 		href: "https://github.com/rorycondict",
-		icon: FaGithub,
+		icon: TbBrandGithub,
 	},
 	linkedin: {
 		label: "LinkedIn",
 		href: "https://www.linkedin.com/in/rorycondict/",
-		icon: FaLinkedin,
+		icon: TbBrandLinkedin,
 	},
 } as const satisfies Record<string, Social>;
 
