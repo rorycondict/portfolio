@@ -195,7 +195,6 @@ a:hover {
   }
 }
 
-.scroll-fade::before,
 .scroll-fade::after {
   content: "";
   position: sticky;
@@ -204,15 +203,6 @@ a:hover {
   height: var(--scroll-fade);
   margin-inline: calc(-1 * var(--scroll-fade));
   pointer-events: none;
-}
-
-.scroll-fade::before {
-  top: calc(-1 * var(--scroll-fade));
-  margin-top: calc(-1 * var(--scroll-fade));
-  background: linear-gradient(var(--bg), transparent);
-}
-
-.scroll-fade::after {
   bottom: calc(-1 * var(--scroll-fade));
   margin-bottom: calc(-1 * var(--scroll-fade));
   background: linear-gradient(transparent, var(--bg));

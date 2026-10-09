@@ -23,6 +23,12 @@ export default function TerminalWindow({
 				}
 				trigger={route}
 			/>
+			<div
+				className="overflow-hidden whitespace-nowrap text-muted select-none"
+				aria-hidden="true"
+			>
+				{"─".repeat(200)}
+			</div>
 			<RouteTransition>{children}</RouteTransition>
 		</div>
 	);

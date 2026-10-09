@@ -10,7 +10,7 @@ export default function RouteTransition({
 	return (
 		<div
 			key={pathname}
-			className="terminal-reveal scroll-fade flex flex-col content-box flex-1 min-h-0 overflow-y-auto my-5"
+			className="terminal-reveal scroll-fade flex flex-col content-box flex-1 min-h-0 overflow-y-auto mb-5"
 		>
 			<div className="terminal-reveal-content flex-1">{children}</div>
 			<span className="terminal-print-head" aria-hidden="true" />
