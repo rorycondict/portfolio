@@ -121,12 +121,11 @@ function About() {
 				<ColorPalette />
 			</div>
 			<div className="flex flex-col pt-15 max-w-xl w-full gap-10">
-				<p>hey, I'm Rory.</p>
+				<h1 className="text-xl font-bold">
+					hey, I'm rory<span className="text-terminal-field">.</span>
+				</h1>
 
-				<p>
-					I like software. currently studying CS as an undergrad - I'm pursuing
-					ML and cybersecurity in particular.
-				</p>
+				<p>I love software! currently studying CS as an undergrad.</p>
 
 				<p>
 					my hobbies include game development, digital art, and photography.
