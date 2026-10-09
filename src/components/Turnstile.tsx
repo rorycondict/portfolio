@@ -37,7 +37,7 @@ const STATUS_LINES: Record<Status, { text: string; className: string }> = {
 	verifying: { text: "# checking for bots...", className: "text-muted" },
 	interactive: { text: "# one quick check:", className: "text-muted" },
 	verified: {
-		text: "# you're human, I think...",
+		text: "# you're human! (probably)",
 		className: "text-terminal-important",
 	},
 	failed: {
