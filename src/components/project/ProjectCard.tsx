@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { TbExternalLink } from "react-icons/tb";
 import IconLink from "@/components/common/IconLink";
 import ProjectPreview from "@/components/project/ProjectPreview";
 import type { Project } from "@/content/projects";
+import { SOCIALS } from "@/content/socials";
 import { formatDateRange, isExternalUrl } from "@/utils";
 
 type MetaRowProps = {
@@ -93,11 +94,15 @@ export default function ProjectCard({
 		links.push({
 			label: "live",
 			href: link,
-			icon: <FaExternalLinkAlt size={12} />,
+			icon: <TbExternalLink size={14} />,
 		});
 	}
 	if (isExternalUrl(source)) {
-		links.push({ label: "source", href: source, icon: <FaGithub size={14} /> });
+		links.push({
+			label: "source",
+			href: source,
+			icon: <SOCIALS.github.icon size={14} />,
+		});
 	}
 
 	const edge = featured ? "border-fg/50" : "border-muted/60";
