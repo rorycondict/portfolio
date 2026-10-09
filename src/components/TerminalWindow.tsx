@@ -18,7 +18,7 @@ export default function TerminalWindow({
 	const target = route.replace(/^\//, "");
 
 	return (
-		<div className="mx-auto mt-5 flex min-h-0 w-full max-w-5xl flex-1 flex-col">
+		<div className="mx-auto mt-3 md:mt-5 flex min-h-0 w-full max-w-5xl flex-1 flex-col">
 			<TerminalCommand
 				commands={[page?.command ?? `cd ~/${target}`]}
 				error={

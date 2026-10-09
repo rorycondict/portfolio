@@ -1,3 +1,4 @@
+import { PROJECTS } from "@/content/projects";
 import { EMAIL, SOCIALS } from "@/content/socials";
 import { formatTitle, normalizePath } from "@/utils";
 
@@ -12,6 +13,9 @@ const PERSON = {
 	"@type": "Person",
 	"@id": `${SITE.url}/#person`,
 	name: "Rory Condict",
+	alternateName: "rorycondict",
+	description: "Computer science undergraduate at the University of Edinburgh.",
+	jobTitle: "Computer Science Student",
 	url: SITE.url,
 	email: `mailto:${EMAIL}`,
 	sameAs: Object.values(SOCIALS).map((social) => social.href),
@@ -20,6 +24,12 @@ const PERSON = {
 		name: "University of Edinburgh",
 	},
 	knowsAbout: ["Software Engineering", "Machine Learning", "Cybersecurity"],
+};
+
+const PERSON_REF = {
+	"@type": "Person",
+	"@id": PERSON["@id"],
+	name: PERSON.name,
 };
 
 export type Page = {
@@ -70,6 +80,26 @@ export const PAGES = {
 		description:
 			"browse the projects I've created, contributed to, or am currently maintaining.",
 		command: "ls projects/",
+		structuredData: {
+			"@type": "CollectionPage",
+			mainEntity: {
+				"@type": "ItemList",
+				itemListElement: PROJECTS.map((project, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					item: {
+						"@type": "SoftwareSourceCode",
+						name: project.name,
+						description: project.description,
+						url: project.link ?? project.source,
+						codeRepository: project.source,
+						programmingLanguage: project.languages,
+						dateCreated: project.date,
+						author: PERSON_REF,
+					},
+				})),
+			},
+		},
 	},
 	contact: {
 		path: "/contact",
