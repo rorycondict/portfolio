@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import ProjectBrowser from "@/components/project/ProjectBrowser";
 import { PAGES, pageHead } from "@/content/site";
+import { SOCIALS } from "@/content/socials";
 
 export const Route = createFileRoute("/projects")({
 	head: () => pageHead(PAGES.projects),
@@ -19,10 +19,10 @@ function Projects() {
 				</h1>
 
 				<IconLink
-					href="https://github.com/rorycondict"
-					icon={<FaGithub size={20} />}
+					href={SOCIALS.github.href}
+					icon={<SOCIALS.github.icon size={20} />}
 				>
-					GitHub
+					{SOCIALS.github.label}
 				</IconLink>
 			</div>
 

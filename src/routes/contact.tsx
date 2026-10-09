@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Turnstile from "@/components/Turnstile";
 import { PAGES, pageHead } from "@/content/site";
+import { EMAIL } from "@/content/socials";
 import { TURNSTILE } from "@/content/turnstile";
 
 export const Route = createFileRoute("/contact")({
@@ -189,8 +190,7 @@ function Contact() {
 			</div>
 
 			<p>
-				you can reach me at{" "}
-				<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
+				you can reach me at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
 			</p>
 
 			<p className="pb-5">alternatively, just use the contact form below:</p>

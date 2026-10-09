@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
 import Separator from "@/components/common/Separator";
 import { PAGES, pageHead } from "@/content/site";
+import { EMAIL, SOCIALS } from "@/content/socials";
 
 export const Route = createFileRoute("/about")({
 	head: () => pageHead(PAGES.about),
@@ -95,27 +95,17 @@ function SocialLinks() {
 			<p>find me on:</p>
 
 			<ul className="flex flex-row gap-5">
-				<li>
-					<IconLink
-						href="https://github.com/rorycondict"
-						icon={<FaGithub size={20} />}
-					>
-						GitHub
-					</IconLink>
-				</li>
-				<li>
-					<IconLink
-						href="https://www.linkedin.com/in/rorycondict/"
-						icon={<FaLinkedin size={20} />}
-					>
-						LinkedIn
-					</IconLink>
-				</li>
+				{Object.values(SOCIALS).map(({ label, href, icon: Icon }) => (
+					<li key={href}>
+						<IconLink href={href} icon={<Icon size={20} />}>
+							{label}
+						</IconLink>
+					</li>
+				))}
 			</ul>
 
 			<p>
-				...or mail me at{" "}
-				<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
+				...or mail me at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
 			</p>
 		</div>
 	);
