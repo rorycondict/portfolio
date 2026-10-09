@@ -10,7 +10,7 @@ export const SITE = {
 export type Page = {
 	path: string;
 	label: string;
-	title?: string;
+	title: string;
 	description: string;
 	command: string;
 };
@@ -19,20 +19,21 @@ export const PAGES = {
 	home: {
 		path: "/",
 		label: "home",
+		title: "ssh rory@portfolio",
 		description: SITE.description,
 		command: "ssh rory@portfolio",
 	},
 	about: {
 		path: "/about",
 		label: "about",
-		title: "whoami",
+		title: formatTitle("whoami"),
 		description: "learn a bit more about me, my interests, and my hobbies.",
 		command: "cat README.md",
 	},
 	projects: {
 		path: "/projects",
 		label: "projects",
-		title: "ls projects/",
+		title: formatTitle("ls projects/"),
 		description:
 			"browse the projects I've created, contributed to, or am currently maintaining.",
 		command: "ls projects/",
@@ -40,7 +41,7 @@ export const PAGES = {
 	contact: {
 		path: "/contact",
 		label: "contact",
-		title: "ping rory",
+		title: formatTitle("ping rory"),
 		description:
 			"reach out to me with a question, offer, or just to have a quick chat.",
 		command: "nano email.txt",
@@ -55,7 +56,7 @@ export function findPage(pathname: string): Page | undefined {
 }
 
 export function pageHead(page: Page) {
-	const title = formatTitle(page.title);
+	const { title } = page;
 	const url = new URL(page.path, SITE.url).href;
 
 	return {
