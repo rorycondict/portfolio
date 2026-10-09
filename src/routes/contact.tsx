@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Turnstile from "@/components/Turnstile";
+import { CONTACT_LIMITS } from "@/content/contact";
 import { PAGES, pageHead } from "@/content/site";
 import { EMAIL } from "@/content/socials";
 import { TURNSTILE } from "@/content/turnstile";
@@ -19,7 +20,7 @@ type PromptFieldProps = {
 	hint?: string;
 	type?: "text" | "email";
 	autocomplete?: string;
-	maxLength?: number;
+	maxLength: number;
 	value: string;
 	onChange: (value: string) => void;
 };
@@ -31,7 +32,7 @@ function PromptField({
 	hint,
 	type = "text",
 	autocomplete,
-	maxLength = 200,
+	maxLength,
 	value,
 	onChange,
 }: PromptFieldProps) {
@@ -79,7 +80,7 @@ function MessageField({
 				id="message"
 				name="message"
 				required
-				maxLength={5000}
+				maxLength={CONTACT_LIMITS.message}
 				rows={6}
 				value={value}
 				onChange={(event) => onChange(event.target.value)}
@@ -147,6 +148,7 @@ function ContactForm() {
 				name="name"
 				placeholder="john_doe"
 				hint="your name"
+				maxLength={CONTACT_LIMITS.name}
 				value={name}
 				onChange={setName}
 			/>
@@ -157,6 +159,7 @@ function ContactForm() {
 				type="email"
 				placeholder="you@example.com"
 				hint="so I can reply"
+				maxLength={CONTACT_LIMITS.email}
 				value={email}
 				onChange={setEmail}
 			/>
