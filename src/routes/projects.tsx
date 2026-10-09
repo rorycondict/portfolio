@@ -12,7 +12,7 @@ export const Route = createFileRoute("/projects")({
 function Projects() {
 	return (
 		<section className="flex flex-col gap-10 items-start">
-			<div className="max-w-md w-full flex flex-col items-start">
+			<div className="max-w-xl w-full flex flex-col items-start">
 				<h1 className="pb-5">
 					these are projects that I've created, contributed to, or am currently
 					maintaining.
