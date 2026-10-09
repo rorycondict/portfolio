@@ -43,15 +43,20 @@ function App() {
 			<h1 className="sr-only">{SITE.name}</h1>
 			<div className="flex w-full flex-col items-center gap-10">
 				<Logo />
-				<strong className="text-sm text-center underline-offset-4">
-					hey, I'm <u>rory condict</u>! welcome to my site.
-				</strong>
+				<div className="text-center gap-2 flex-col flex">
+					<strong className="text-xl">
+						hey, I'm rory condict<span className="text-terminal-field">
+							.
+						</span>{" "}
+					</strong>
+					<p className="text-md">welcome to my site!</p>
+				</div>
 			</div>
 			<div className="flex flex-col items-center gap-2">
 				<Link
 					to={PAGES.about.path}
 					aria-label="enter site"
-					className="splash-enter text-2xl md:text-xl"
+					className="splash-enter text-xl md:text-lg"
 				>
 					<span aria-hidden>
 						<span className="text-terminal-field">{program}</span> {args}
