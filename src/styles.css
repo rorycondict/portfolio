@@ -149,19 +149,32 @@ a:hover {
   align-items: center;
   text-decoration: none;
   color: var(--fg-muted);
+  transition: color 170ms ease;
+}
+
+/* Taller tap targets on mobile */
+@media (width < 48rem) {
+  .nav-link {
+    padding-block: 0.75rem;
+  }
+}
+
+/* Brackets hang outside the label so showing them doesn't shift the layout */
+.nav-link::before,
+.nav-link::after {
+  position: absolute;
+  color: var(--fg-muted);
+  visibility: hidden;
+}
+
+.nav-link::before {
+  content: "[";
+  right: 100%;
 }
 
 .nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: var(--fg-highlight);
-  transition: transform 170ms ease;
+  content: "]";
+  left: 100%;
 }
 
 .nav-link:hover,
@@ -169,15 +182,9 @@ a:hover {
   color: var(--fg-highlight);
 }
 
-.nav-link:hover::after,
+.nav-link.is-active::before,
 .nav-link.is-active::after {
-  transform: scaleX(1);
-}
-
-@media (max-width: 640px) {
-  .nav-link::after {
-    bottom: -4px;
-  }
+  visibility: visible;
 }
 
 .terminal-reveal {
@@ -277,9 +284,5 @@ a:hover {
   .terminal-print-head,
   .terminal-caret {
     animation: none;
-  }
-
-  .nav-link::after {
-    transition: none;
   }
 }
