@@ -1,3 +1,4 @@
+import { EMAIL, SOCIALS } from "@/content/socials";
 import { formatTitle, normalizePath } from "@/utils";
 
 export const SITE = {
@@ -7,12 +8,28 @@ export const SITE = {
 	image: "https://rorycondict.com/preview.png",
 };
 
+// schema.org Person, so search engines can tie the site to my profiles
+const PERSON = {
+	"@type": "Person",
+	"@id": `${SITE.url}/#person`,
+	name: "Rory Condict",
+	url: SITE.url,
+	email: `mailto:${EMAIL}`,
+	sameAs: Object.values(SOCIALS).map((social) => social.href),
+	affiliation: {
+		"@type": "CollegeOrUniversity",
+		name: "University of Edinburgh",
+	},
+	knowsAbout: ["Software Engineering", "Machine Learning", "Cybersecurity"],
+};
+
 export type Page = {
 	path: string;
 	label: string;
 	title: string;
 	description: string;
 	command: string;
+	structuredData?: Record<string, unknown>;
 };
 
 export const PAGES = {
@@ -22,6 +39,19 @@ export const PAGES = {
 		title: "ssh rory@portfolio",
 		description: SITE.description,
 		command: "ssh rory@portfolio",
+		structuredData: {
+			"@graph": [
+				{
+					"@type": "WebSite",
+					"@id": `${SITE.url}/#website`,
+					name: SITE.name,
+					alternateName: PERSON.name,
+					url: SITE.url,
+					author: { "@id": PERSON["@id"] },
+				},
+				PERSON,
+			],
+		},
 	},
 	about: {
 		path: "/about",
@@ -29,6 +59,10 @@ export const PAGES = {
 		title: formatTitle("whoami"),
 		description: "learn a bit more about me, my interests, and my hobbies.",
 		command: "cat README.md",
+		structuredData: {
+			"@type": "ProfilePage",
+			mainEntity: PERSON,
+		},
 	},
 	projects: {
 		path: "/projects",
@@ -56,7 +90,7 @@ export function findPage(pathname: string): Page | undefined {
 }
 
 export function pageHead(page: Page) {
-	const { title } = page;
+	const { title, structuredData } = page;
 	const url = new URL(page.path, SITE.url).href;
 
 	return {
@@ -68,6 +102,12 @@ export function pageHead(page: Page) {
 			{ property: "og:url", content: url },
 			{ name: "twitter:title", content: title },
 			{ name: "twitter:description", content: page.description },
+			structuredData && {
+				"script:ld+json": {
+					"@context": "https://schema.org",
+					...structuredData,
+				},
+			},
 		],
 		links: [{ rel: "canonical", href: url }],
 	};
