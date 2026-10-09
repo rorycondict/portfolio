@@ -86,13 +86,17 @@ export const Route = createFileRoute("/api/contact")({
 
 				if (!success) {
 					return Response.json(
-						"Too many messages. Please try again in a minute.",
-						{ status: 429 },
+						"chill out with the requests. try again in a minute.",
+						{
+							status: 429,
+						},
 					);
 				}
 
 				const tooLarge = () =>
-					Response.json("Request is too large.", { status: 413 });
+					Response.json("your message is too long. impressive i guess?", {
+						status: 413,
+					});
 
 				if (Number(request.headers.get("content-length")) > MAX_BODY_BYTES) {
 					return tooLarge();
@@ -109,11 +113,17 @@ export const Route = createFileRoute("/api/contact")({
 				try {
 					body = JSON.parse(raw);
 				} catch {
-					return Response.json("Invalid JSON.", { status: 400 });
+					return Response.json(
+						"something went wrong sending that. please try again.",
+						{ status: 400 },
+					);
 				}
 
 				if (typeof body !== "object" || body === null) {
-					return Response.json("Invalid JSON.", { status: 400 });
+					return Response.json(
+						"something went wrong sending that. please try again.",
+						{ status: 400 },
+					);
 				}
 
 				const name = field(body.name);
@@ -121,7 +131,7 @@ export const Route = createFileRoute("/api/contact")({
 				const message = field(body.message);
 
 				if (!name || !email || !message) {
-					return Response.json("Name, email and message are required.", {
+					return Response.json("your name, email and message are all needed.", {
 						status: 400,
 					});
 				}
@@ -130,24 +140,26 @@ export const Route = createFileRoute("/api/contact")({
 					name.length > CONTACT_LIMITS.name ||
 					email.length > CONTACT_LIMITS.email
 				) {
-					return Response.json("Name or email is too long.", { status: 400 });
+					return Response.json("your name or email is too long.", {
+						status: 400,
+					});
 				}
 
 				if (message.length > CONTACT_LIMITS.message) {
 					return Response.json(
-						`Message is too long. Maximum ${CONTACT_LIMITS.message} characters.`,
+						`your message is too long (max ${CONTACT_LIMITS.message} characters).`,
 						{ status: 400 },
 					);
 				}
 
 				if (!EMAIL_PATTERN.test(email)) {
-					return Response.json("Please enter a valid email address.", {
+					return Response.json("you sure that's your email?", {
 						status: 400,
 					});
 				}
 
 				if (!(await verifyTurnstile(body.token, ip))) {
-					return Response.json("Verification failed. Please try again.", {
+					return Response.json("the bot check failed. please try again.", {
 						status: 403,
 					});
 				}
@@ -159,25 +171,27 @@ export const Route = createFileRoute("/api/contact")({
 				const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
 				const { error } = await resend.emails.send({
-					from: "contact@mail.rorycondict.com",
+					from: "portfolio website <contact@mail.rorycondict.com>",
 					to: "hi@rorycondict.com",
 					replyTo: email,
-					// Collapse whitespace so line breaks can't reach the subject header
-					subject: `A new contact form message: ${name.replace(/\s+/g, " ")}`,
+					subject: `a new message from the site: ${name.replace(/\s+/g, " ")}`,
 					html: `
 						<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-							<p><strong>Name</strong><br>${safeName}</p>
+							<p><strong>name</strong><br>${safeName}</p>
 
-							<p><strong>Email</strong><br>${safeEmail}</p>
+							<p><strong>email</strong><br>${safeEmail}</p>
 
-							<p><strong>Message</strong><br>${safeMessage}</p>
+							<p><strong>message</strong><br>${safeMessage}</p>
 						</div>
 					`,
 				});
 
 				if (error) {
 					console.error("Resend error:", error);
-					return Response.json("Failed to send message.", { status: 500 });
+					return Response.json(
+						"couldn't send your message. try emailing me instead.",
+						{ status: 500 },
+					);
 				}
 
 				return Response.json({ success: true });
