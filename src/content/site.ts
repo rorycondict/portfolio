@@ -4,7 +4,7 @@ export const SITE = {
 	name: "rory condict.",
 	description: "a small collection of my things.",
 	url: "https://rorycondict.com",
-	image: "https://rorycondict.com/preview.webp",
+	image: "https://rorycondict.com/preview.png",
 };
 
 export type Page = {
