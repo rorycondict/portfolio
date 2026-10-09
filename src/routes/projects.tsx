@@ -1,46 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FaGithub } from "react-icons/fa";
 import IconLink from "@/components/common/IconLink";
-import Separator from "@/components/common/Separator";
 import ProjectBrowser from "@/components/project/ProjectBrowser";
-import { formatTitle } from "@/utils";
+import { PAGES, pageHead } from "@/content/site";
+import { SOCIALS } from "@/content/socials";
 
 export const Route = createFileRoute("/projects")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("ls projects/") },
-			{
-				name: "description",
-				content:
-					"browse the projects I've created, contributed to, or am currently maintaining.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.projects),
 	component: Projects,
 });
 
 function Projects() {
 	return (
-		<section className="flex flex-col gap-10 items-center">
-			<div className="text-center max-w-md w-full mx-auto flex flex-col items-center">
-				<h1 className="pb-3">
+		<section className="flex flex-col gap-10 items-start">
+			<div className="max-w-xl w-full flex flex-col items-start">
+				<h1 className="pb-5">
 					these are projects that I've created, contributed to, or am currently
 					maintaining.
 				</h1>
 
 				<IconLink
-					href="https://github.com/rorycondict"
-					icon={<FaGithub size={20} />}
+					href={SOCIALS.github.href}
+					icon={<SOCIALS.github.icon size={20} />}
 				>
-					GitHub
+					{SOCIALS.github.label}
 				</IconLink>
-
-				<Separator />
 			</div>
 
 			<ProjectBrowser
 				footer={
-					<p className="mt-4 self-center text-[10px] text-muted">
+					<p className="mt-4 self-start text-[10px] text-muted">
 						oh, that's everything? :(
 					</p>
 				}

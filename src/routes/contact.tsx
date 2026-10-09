@@ -1,18 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { formatTitle } from "@/utils";
+import Turnstile from "@/components/Turnstile";
+import { CONTACT_LIMITS } from "@/content/contact";
+import { PAGES, pageHead } from "@/content/site";
+import { EMAIL } from "@/content/socials";
+import { TURNSTILE } from "@/content/turnstile";
 
 export const Route = createFileRoute("/contact")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("ping rory") },
-			{
-				name: "description",
-				content:
-					"reach out to me with a question, offer, or just to have a quick chat.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.contact),
 	component: Contact,
 });
 
@@ -25,7 +20,7 @@ type PromptFieldProps = {
 	hint?: string;
 	type?: "text" | "email";
 	autocomplete?: string;
-	maxLength?: number;
+	maxLength: number;
 	value: string;
 	onChange: (value: string) => void;
 };
@@ -37,7 +32,7 @@ function PromptField({
 	hint,
 	type = "text",
 	autocomplete,
-	maxLength = 200,
+	maxLength,
 	value,
 	onChange,
 }: PromptFieldProps) {
@@ -85,7 +80,7 @@ function MessageField({
 				id="message"
 				name="message"
 				required
-				maxLength={5000}
+				maxLength={CONTACT_LIMITS.message}
 				rows={6}
 				value={value}
 				onChange={(event) => onChange(event.target.value)}
@@ -103,6 +98,8 @@ function ContactForm() {
 	const [message, setMessage] = useState("");
 	const [status, setStatus] = useState<Status>("idle");
 	const [error, setError] = useState<string | null>(null);
+	const [token, setToken] = useState<string | null>(null);
+	const [widgetKey, setWidgetKey] = useState(0);
 
 	async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -113,7 +110,7 @@ function ContactForm() {
 			const response = await fetch("/api/contact", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ name, email, message }),
+				body: JSON.stringify({ name, email, message, token }),
 			});
 
 			if (!response.ok) {
@@ -127,12 +124,14 @@ function ContactForm() {
 		} catch (err) {
 			setStatus("error");
 			setError(err instanceof Error ? err.message : "failed to send message.");
+			setToken(null);
+			setWidgetKey((key) => key + 1);
 		}
 	}
 
 	if (status === "sent") {
 		return (
-			<div className="flex flex-col items-center gap-3">
+			<div className="flex flex-col items-start gap-3">
 				<p className="text-terminal-important border p-2">message sent.</p>
 				<p>thanks for reaching out!</p>
 			</div>
@@ -149,6 +148,7 @@ function ContactForm() {
 				name="name"
 				placeholder="john_doe"
 				hint="your name"
+				maxLength={CONTACT_LIMITS.name}
 				value={name}
 				onChange={setName}
 			/>
@@ -159,20 +159,27 @@ function ContactForm() {
 				type="email"
 				placeholder="you@example.com"
 				hint="so I can reply"
+				maxLength={CONTACT_LIMITS.email}
 				value={email}
 				onChange={setEmail}
 			/>
 
 			<MessageField value={message} onChange={setMessage} />
 
+			<Turnstile
+				key={widgetKey}
+				action={TURNSTILE.actions.contact}
+				onToken={setToken}
+			/>
+
 			{error ? <p className="text-terminal-field">{error}</p> : null}
 
 			<button
 				type="submit"
-				disabled={status === "sending"}
+				disabled={status === "sending" || !token}
 				className="self-start cursor-pointer text-terminal-accent underline decoration-terminal-accent/25 decoration-2 underline-offset-4 transition-colors duration-300 hover:text-fg-highlight hover:decoration-fg-highlight disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline"
 			>
-				$ {status === "sending" ? "sending..." : "./send -f email.txt"}
+				{status === "sending" ? "# sending..." : "./send -f email.txt"}
 			</button>
 		</form>
 	);
@@ -180,14 +187,13 @@ function ContactForm() {
 
 function Contact() {
 	return (
-		<section className="flex flex-col gap-3 items-center">
-			<div className="text-center max-w-md w-full mx-auto flex flex-col items-center">
+		<section className="flex flex-col gap-3 items-start">
+			<div className="max-w-md w-full flex flex-col items-start">
 				<h1>I'm always open to chat!</h1>
 			</div>
 
 			<p>
-				you can reach me at{" "}
-				<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
+				you can reach me at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
 			</p>
 
 			<p className="pb-5">alternatively, just use the contact form below:</p>

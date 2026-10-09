@@ -1,12 +1,17 @@
 export function formatTitle(pageTitle?: string) {
-	const baseTitle = "rory:~$";
+	const baseTitle = "rory.condict:~$";
 	return pageTitle ? `${baseTitle} ${pageTitle}` : baseTitle;
+}
+
+export function normalizePath(pathname: string) {
+	return pathname.replace(/\/+$/, "") || "/";
 }
 
 export function formatMonthYear(isoDate: string) {
 	return new Date(isoDate).toLocaleDateString("en-US", {
 		month: "short",
 		year: "numeric",
+		timeZone: "UTC",
 	});
 }
 

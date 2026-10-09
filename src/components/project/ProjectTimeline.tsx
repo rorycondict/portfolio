@@ -1,5 +1,5 @@
-import { PROJECTS, type Project } from "@/constants/projects";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "@/components/project/ProjectCard";
+import { PROJECTS, type Project } from "@/content/projects";
 
 type ProjectSection = {
 	label: string;
@@ -48,7 +48,7 @@ export default function ProjectTimeline({
 	onSelectTag,
 }: ProjectTimelineProps) {
 	return (
-		<div className="flex w-full flex-col gap-8">
+		<div className="flex w-full flex-col gap-25">
 			{buildSections(projects).map((section) => (
 				<section key={section.label} className="flex flex-col gap-4">
 					<h2
@@ -60,7 +60,7 @@ export default function ProjectTimeline({
 						<span aria-hidden="true" className="h-px flex-1 bg-muted/40" />
 					</h2>
 
-					<ul className="flex flex-col gap-4">
+					<ul className="flex flex-col gap-10">
 						{section.projects.map((project) => (
 							<li key={`${project.name}-${project.date}`}>
 								<ProjectCard project={project} onSelectTag={onSelectTag} />

@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { TbExternalLink } from "react-icons/tb";
 import IconLink from "@/components/common/IconLink";
-import type { Project } from "@/constants/projects";
+import ProjectPreview from "@/components/project/ProjectPreview";
+import type { Project } from "@/content/projects";
+import { SOCIALS } from "@/content/socials";
 import { formatDateRange, isExternalUrl } from "@/utils";
-import ProjectPreview from "./ProjectPreview";
 
 type MetaRowProps = {
 	label: string;
@@ -93,20 +94,24 @@ export default function ProjectCard({
 		links.push({
 			label: "live",
 			href: link,
-			icon: <FaExternalLinkAlt size={12} />,
+			icon: <TbExternalLink size={14} />,
 		});
 	}
 	if (isExternalUrl(source)) {
-		links.push({ label: "source", href: source, icon: <FaGithub size={14} /> });
+		links.push({
+			label: "source",
+			href: source,
+			icon: <SOCIALS.github.icon size={14} />,
+		});
 	}
 
 	const edge = featured ? "border-fg/50" : "border-muted/60";
 
 	return (
-		<article className={`border ${edge} transition-colors hover:border-fg`}>
+		<article className={`border ${edge} transition-colors`}>
 			<header className={`flex flex-col gap-1 border-b ${edge} px-4 py-2`}>
 				<div className="flex items-baseline justify-between gap-4">
-					<h3 className="text-terminal-accent">
+					<h3 className="text-xl text-terminal-accent">
 						{featured && (
 							<span aria-hidden="true" className="text-terminal-important">
 								*

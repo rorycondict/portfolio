@@ -1,4 +1,4 @@
-import type { ProjectMedia } from "@/constants/projects";
+import type { ProjectMedia } from "@/content/projects";
 
 export default function ProjectPreview({ media }: { media: ProjectMedia[] }) {
 	return (

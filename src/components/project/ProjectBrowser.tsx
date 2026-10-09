@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from "react";
-import { PROJECTS, type Project } from "@/constants/projects";
-import ProjectFilter from "./ProjectFilter";
-import ProjectTimeline from "./ProjectTimeline";
+import ProjectFilter from "@/components/project/ProjectFilter";
+import ProjectTimeline from "@/components/project/ProjectTimeline";
+import { PROJECTS, type Project } from "@/content/projects";
 
 function normalize(value: string) {
 	return value.toLowerCase().replace(/[\s_]+/g, " ");
@@ -35,7 +35,7 @@ export default function ProjectBrowser({
 		: projects;
 
 	return (
-		<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+		<div className="flex w-full max-w-3xl flex-col gap-6">
 			<ProjectFilter query={query} onQueryChange={setQuery} />
 
 			{term.length > 0 && (

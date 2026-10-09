@@ -1,6 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const UNSET = Symbol("unset");
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+	const query = window.matchMedia(REDUCED_MOTION);
+	query.addEventListener("change", onChange);
+	return () => query.removeEventListener("change", onChange);
+}
+
+function usePrefersReducedMotion() {
+	return useSyncExternalStore(
+		subscribeReducedMotion,
+		() => window.matchMedia(REDUCED_MOTION).matches,
+		() => false,
+	);
+}
 
 type QueueItem =
 	| { kind: "command"; text: string }
@@ -67,6 +82,7 @@ export default function TerminalCommand({
 	const [cwd, setCwd] = useState(initialPath);
 	const nextId = useRef(0);
 	const lastTrigger = useRef<unknown>(UNSET);
+	const reducedMotion = usePrefersReducedMotion();
 
 	useEffect(() => {
 		if (lastTrigger.current === trigger) return;
@@ -115,15 +131,25 @@ export default function TerminalCommand({
 			);
 			return;
 		}
-		const timer = setTimeout(() => {
-			setLines((prev) =>
-				prev.map((line) =>
-					line.id === active.id ? { ...line, typed: line.typed + 1 } : line,
-				),
-			);
-		}, typeSpeed);
+		const timer = setTimeout(
+			() => {
+				setLines((prev) =>
+					prev.map((line) =>
+						line.id === active.id
+							? {
+									...line,
+									typed: reducedMotion ? line.text.length : line.typed + 1,
+								}
+							: line,
+					),
+				);
+			},
+			reducedMotion ? 0 : typeSpeed,
+		);
 		return () => clearTimeout(timer);
-	}, [active, cwd, typeSpeed]);
+	}, [active, cwd, typeSpeed, reducedMotion]);
+
+	const currentId = lines.filter((line) => !line.isError).at(-1)?.id;
 
 	const slots = Array.from(
 		{ length: Math.max(0, bufferSize - lines.length) },
@@ -131,25 +157,38 @@ export default function TerminalCommand({
 	);
 
 	return (
-		<div
-			className={`border-2 px-4 py-3 flex flex-col gap-1 text-sm ${className}`}
-			aria-live="polite"
-		>
+		<div className={`px-4 py-3 flex flex-col gap-1 text-sm ${className}`}>
+			<div className="sr-only" aria-live="polite">
+				{lines
+					.filter((line) => line.complete)
+					.map((line) => (
+						<p key={line.id}>
+							{line.isError ? line.text : `${line.path}$ ${line.text}`}
+						</p>
+					))}
+			</div>
 			{lines.map((line) =>
 				line.isError ? (
 					<p
 						key={line.id}
+						aria-hidden
 						className="whitespace-pre-wrap break-all text-terminal-field"
 					>
 						{line.text}
 					</p>
 				) : (
-					<p key={line.id} className="whitespace-pre-wrap break-all">
+					<p
+						key={line.id}
+						aria-hidden
+						className="whitespace-pre-wrap break-all"
+					>
 						<span className={`mr-2 select-none ${promptClassName}`}>
 							{prompt(line.path)}$
 						</span>
 						<span>{line.text.slice(0, line.typed)}</span>
-						{!line.complete && <span className="terminal-caret" aria-hidden />}
+						{line.id === currentId && (
+							<span className="terminal-caret" aria-hidden />
+						)}
 					</p>
 				),
 			)}

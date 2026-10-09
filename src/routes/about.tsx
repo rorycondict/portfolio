@@ -1,20 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Fragment } from "react/jsx-runtime";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { formatTitle } from "@/utils";
-import IconLink from "../components/common/IconLink";
-import Separator from "../components/common/Separator";
+import { Fragment } from "react";
+import IconLink from "@/components/common/IconLink";
+import Separator from "@/components/common/Separator";
+import { PAGES, pageHead } from "@/content/site";
+import { EMAIL, SOCIALS } from "@/content/socials";
 
 export const Route = createFileRoute("/about")({
-	head: () => ({
-		meta: [
-			{ title: formatTitle("whoami") },
-			{
-				name: "description",
-				content: "learn a bit more about me, my interests, and my hobbies.",
-			},
-		],
-	}),
+	head: () => pageHead(PAGES.about),
 	component: About,
 });
 
@@ -37,7 +29,7 @@ const terminalColors: [string, string][] = [
 
 function AsciiArt() {
 	return (
-		<div className="ascii-fit flex w-full flex-wrap justify-center">
+		<div className="ascii-fit flex w-full flex-wrap justify-start">
 			<pre className="ascii-art md:pr-5 pb-3">
 				{`
 
@@ -103,27 +95,17 @@ function SocialLinks() {
 			<p>find me on:</p>
 
 			<ul className="flex flex-row gap-5">
-				<li>
-					<IconLink
-						href="https://github.com/rorycondict"
-						icon={<FaGithub size={20} />}
-					>
-						GitHub
-					</IconLink>
-				</li>
-				<li>
-					<IconLink
-						href="https://www.linkedin.com/in/rorycondict/"
-						icon={<FaLinkedin size={20} />}
-					>
-						LinkedIn
-					</IconLink>
-				</li>
+				{Object.values(SOCIALS).map(({ label, href, icon: Icon }) => (
+					<li key={href}>
+						<IconLink href={href} icon={<Icon size={20} />}>
+							{label}
+						</IconLink>
+					</li>
+				))}
 			</ul>
 
 			<p>
-				...or mail me at{" "}
-				<a href="mailto:hi@rorycondict.com">hi@rorycondict.com</a>
+				...or mail me at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
 			</p>
 		</div>
 	);
@@ -132,19 +114,18 @@ function SocialLinks() {
 function About() {
 	return (
 		<section className="flex flex-col">
-			<div className="flex w-full flex-col items-center">
+			<div className="flex w-full flex-col items-start">
 				<AsciiArt />
-				<Separator />
+				<Separator length={30} />
 				<TerminalFields />
 				<ColorPalette />
 			</div>
-			<div className="flex flex-col pt-15 max-w-xl mx-auto w-full gap-10">
-				<p>hey, I'm Rory.</p>
+			<div className="flex flex-col pt-15 max-w-xl w-full gap-10">
+				<h1 className="text-xl font-bold">
+					hey, I'm rory<span className="text-terminal-field">.</span>
+				</h1>
 
-				<p>
-					I like software. currently studying CS as an undergrad - I'm pursuing
-					ML and cybersecurity in particular.
-				</p>
+				<p>I love software! currently studying CS as an undergrad.</p>
 
 				<p>
 					my hobbies include game development, digital art, and photography.

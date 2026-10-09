@@ -1,10 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&text=%20%E2%96%88%E2%96%91&display=block");
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
+
+/* JetBrains Mono (SIL OFL 1.1, see fonts/OFL.txt), subset to the space
+   and block characters the ASCII art uses */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/JetBrainsMono-blocks.woff2") format("woff2");
+  font-display: block;
+  unicode-range: U+0020, U+2588, U+2591;
+}
 
 @theme {
-  --font: "Consolas", monospace;
+  --font-sans: "Consolas", monospace;
 }
 
 @theme inline {
@@ -14,61 +20,42 @@
   --color-bg: var(--bg);
   --color-terminal-field: var(--terminal-field);
   --color-terminal-important: var(--terminal-important);
-  --color-terminal-accent: var(--terminal-accent)
+  --color-terminal-accent: var(--terminal-accent);
 }
 
 :root {
-  --bg: #0a0b0f;
-  --fg: #bfc0c6;
-  --fg-highlight: #ffffff;
-  --fg-muted: #5b5b5e;
-  --terminal-field: #e74856;
-  --terminal-important: #16c60c;
-  --terminal-accent: #3b78ff;
+  color-scheme: light dark;
+  --bg: light-dark(#ffffff, #0a0b0f);
+  --fg: light-dark(#4d4d4c, #bfc0c6);
+  --fg-highlight: light-dark(#000000, #ffffff);
+  --fg-muted: light-dark(#8e908c, #5b5b5e);
+  --terminal-field: light-dark(#c82829, #e74856);
+  --terminal-important: light-dark(#718c00, #16c60c);
+  --terminal-accent: light-dark(#4271ae, #3b78ff);
 }
 
-* {
-  box-sizing: border-box;
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 html,
-body,
-#app {
+body {
   min-height: 100%;
 }
 
 body {
   color: var(--fg);
-  font-family: var(--font);
   background-color: var(--bg);
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.28;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.14;
-  background-size: 28px 28px;
-  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
 }
 
 :root {
-  --scrollbar-width: 15px;
-  --scrollbar-track-bg: solid;
+  --scrollbar-width: 10px;
+  --scrollbar-track-bg: transparent;
   --scrollbar-track-border: none;
   --scrollbar-thumb-bg: var(--fg);
   --scrollbar-thumb-hover-bg: var(--fg-highlight);
@@ -120,34 +107,20 @@ body::after {
   }
 }
 
-a {
-  color: var(--fg-highlight);
-  text-decoration-line: underline;
-  text-decoration-color: var(--fg-muted);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-  transition: text-decoration-color 170ms ease;
-}
+/* In the base layer so utility classes on a link can override these */
+@layer base {
+  a {
+    color: var(--fg-highlight);
+    text-decoration-line: underline;
+    text-decoration-color: var(--fg-muted);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 170ms ease;
+  }
 
-a:hover {
-  text-decoration-color: var(--fg-highlight);
-}
-
-code {
-  font-size: 0.9em;
-  border: 1px solid var(--fg-muted);
-  background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
-  border-radius: 7px;
-  padding: 2px 7px;
-}
-
-pre code {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  font-size: inherit;
-  color: inherit;
+  a:hover {
+    text-decoration-color: var(--fg-highlight);
+  }
 }
 
 .page-wrap {
@@ -181,25 +154,55 @@ pre code {
   }
 }
 
+.ascii-art.splash-logo {
+  --ascii-cols: 23;
+  --ascii-max: 24px;
+  --ascii-slack: 0px;
+  line-height: 1.2;
+}
+
+.splash-enter {
+  color: var(--fg);
+  transition: color 170ms ease;
+}
+
+.splash-enter:hover,
+.splash-enter:focus-visible {
+  color: var(--fg-highlight);
+}
+
 .nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
   color: var(--fg-muted);
+  transition: color 170ms ease;
+}
+
+/* Taller tap targets on mobile */
+@media (width < 48rem) {
+  .nav-link {
+    padding-block: 0.75rem;
+  }
+}
+
+/* Brackets hang outside the label so showing them doesn't shift the layout */
+.nav-link::before,
+.nav-link::after {
+  position: absolute;
+  color: var(--fg-muted);
+  visibility: hidden;
+}
+
+.nav-link::before {
+  content: "[";
+  right: 100%;
 }
 
 .nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: var(--fg-highlight);
-  transition: transform 170ms ease;
+  content: "]";
+  left: 100%;
 }
 
 .nav-link:hover,
@@ -207,39 +210,37 @@ pre code {
   color: var(--fg-highlight);
 }
 
-.nav-link:hover::after,
+.nav-link.is-active::before,
 .nav-link.is-active::after {
-  transform: scaleX(1);
-}
-
-@media (max-width: 640px) {
-  .nav-link::after {
-    bottom: -4px;
-  }
-}
-
-.site-footer {
-  border-top: 1px solid var(--fg-muted);
-  background: color-mix(in oklab, var(--bg) 84%, transparent 16%);
-}
-
-.rise-in {
-  animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  visibility: visible;
 }
 
 .terminal-reveal {
   position: relative;
+}
+
+.scroll-fade {
+  --scroll-fade: 1rem;
+  padding: var(--scroll-fade);
+}
+
+@media (width >= 48rem) {
+  .scroll-fade {
+    --scroll-fade: 1rem;
+  }
+}
+
+.scroll-fade::after {
+  content: "";
+  position: sticky;
+  z-index: 1;
+  flex-shrink: 0;
+  height: var(--scroll-fade);
+  margin-inline: calc(-1 * var(--scroll-fade));
+  pointer-events: none;
+  bottom: calc(-1 * var(--scroll-fade));
+  margin-bottom: calc(-1 * var(--scroll-fade));
+  background: linear-gradient(transparent, var(--bg));
 }
 
 .terminal-reveal-content {
@@ -255,6 +256,32 @@ pre code {
   }
 }
 
+.mobile-menu {
+  animation: mobile-menu-reveal 160ms steps(6, end) both;
+}
+
+.mobile-menu.is-closing {
+  animation: mobile-menu-hide 120ms steps(4, end) both;
+}
+
+@keyframes mobile-menu-reveal {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes mobile-menu-hide {
+  from {
+    clip-path: inset(0);
+  }
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
 .terminal-print-head {
   position: absolute;
   left: 0;
@@ -263,6 +290,7 @@ pre code {
   height: 10px;
   background: var(--fg-highlight);
   box-shadow: 0 0 10px color-mix(in oklab, var(--fg-highlight) 60%, transparent);
+  z-index: 2;
   opacity: 0;
   pointer-events: none;
   animation:
@@ -302,5 +330,19 @@ pre code {
 @keyframes terminal-caret-blink {
   50% {
     opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-reveal-content,
+  .terminal-print-head,
+  .terminal-caret {
+    animation: none;
+  }
+
+  /* Not removed outright: the menu unmounts when its hide animation ends */
+  .mobile-menu,
+  .mobile-menu.is-closing {
+    animation-duration: 1ms;
   }
 }
