@@ -101,6 +101,7 @@ export function pageHead(page: Page) {
 			{ property: "og:url", content: url },
 			{ name: "twitter:title", content: title },
 			{ name: "twitter:description", content: page.description },
+			{ name: "twitter:url", content: url },
 			structuredData && {
 				"script:ld+json": {
 					"@context": "https://schema.org",
