@@ -101,17 +101,20 @@ body {
   }
 }
 
-a {
-  color: var(--fg-highlight);
-  text-decoration-line: underline;
-  text-decoration-color: var(--fg-muted);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-  transition: text-decoration-color 170ms ease;
-}
+/* In the base layer so utility classes on a link can override these */
+@layer base {
+  a {
+    color: var(--fg-highlight);
+    text-decoration-line: underline;
+    text-decoration-color: var(--fg-muted);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 170ms ease;
+  }
 
-a:hover {
-  text-decoration-color: var(--fg-highlight);
+  a:hover {
+    text-decoration-color: var(--fg-highlight);
+  }
 }
 
 .page-wrap {
