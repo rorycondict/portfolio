@@ -4,6 +4,9 @@ import TerminalCommand from "@/components/TerminalCommand";
 import { findPage } from "@/content/site";
 import { normalizePath } from "@/utils";
 
+// The mobile menu portals into this, so it covers the page but not the command
+export const TERMINAL_PANE_ID = "terminal-pane";
+
 export default function TerminalWindow({
 	children,
 }: {
@@ -29,7 +32,12 @@ export default function TerminalWindow({
 			>
 				{"─".repeat(200)}
 			</div>
-			<RouteTransition>{children}</RouteTransition>
+			<div
+				id={TERMINAL_PANE_ID}
+				className="relative flex min-h-0 flex-1 flex-col"
+			>
+				<RouteTransition>{children}</RouteTransition>
+			</div>
 		</div>
 	);
 }

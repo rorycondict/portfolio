@@ -14,7 +14,7 @@ const THEME_ICONS: Record<ThemeMode, IconType> = {
 	dark: TbMoon,
 };
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ size = 20 }: { size?: number }) {
 	const [mode, setMode] = useState<ThemeMode | null>(null);
 
 	useEffect(() => {
@@ -38,7 +38,7 @@ export default function ThemeToggle() {
 			title={`theme: ${current}`}
 			className={`nav-link cursor-pointer px-2 md:px-0 ${mode ? "" : "invisible"}`}
 		>
-			<Icon size={20} />
+			<Icon size={size} />
 		</button>
 	);
 }

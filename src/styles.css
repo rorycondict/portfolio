@@ -228,6 +228,32 @@ a:hover {
   }
 }
 
+.mobile-menu {
+  animation: mobile-menu-reveal 160ms steps(6, end) both;
+}
+
+.mobile-menu.is-closing {
+  animation: mobile-menu-hide 120ms steps(4, end) both;
+}
+
+@keyframes mobile-menu-reveal {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes mobile-menu-hide {
+  from {
+    clip-path: inset(0);
+  }
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
 .terminal-print-head {
   position: absolute;
   left: 0;
@@ -284,5 +310,11 @@ a:hover {
   .terminal-print-head,
   .terminal-caret {
     animation: none;
+  }
+
+  /* Not removed outright: the menu unmounts when its hide animation ends */
+  .mobile-menu,
+  .mobile-menu.is-closing {
+    animation-duration: 1ms;
   }
 }
