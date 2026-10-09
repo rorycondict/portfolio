@@ -1,5 +1,5 @@
 export function formatTitle(pageTitle?: string) {
-	const baseTitle = "rory:~$";
+	const baseTitle = "rory.condict:~$";
 	return pageTitle ? `${baseTitle} ${pageTitle}` : baseTitle;
 }
 

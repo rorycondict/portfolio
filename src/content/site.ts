@@ -35,7 +35,7 @@ export const PAGES = {
 	home: {
 		path: "/",
 		label: "home",
-		title: "ssh rory@portfolio",
+		title: SITE.name,
 		description: SITE.description,
 		command: "ssh rory@portfolio",
 		structuredData: {

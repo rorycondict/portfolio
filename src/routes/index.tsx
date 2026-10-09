@@ -39,9 +39,14 @@ function App() {
 	}, [navigate]);
 
 	return (
-		<section className="flex min-h-dvh flex-col items-center justify-center gap-20 px-4">
+		<section className="flex min-h-dvh flex-col items-center justify-center gap-10 px-4">
 			<h1 className="sr-only">{SITE.name}</h1>
-			<Logo />
+			<div className="flex w-full flex-col items-center gap-10">
+				<Logo />
+				<strong className="text-sm text-center underline-offset-4">
+					hey, I'm <u>rory condict</u>! welcome to my site.
+				</strong>
+			</div>
 			<div className="flex flex-col items-center gap-2">
 				<Link
 					to={PAGES.about.path}
