@@ -2,18 +2,17 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import {
 	createRootRoute,
 	HeadContent,
-	Link,
 	Scripts,
 	useRouterState,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import NotFound from "@/components/NotFound";
 import TerminalWindow from "@/components/TerminalWindow";
 import { FULL_CHROME, type RouteChrome } from "@/content/chrome";
 import { SITE } from "@/content/site";
 import appCss from "@/styles.css?url";
-import { formatTitle } from "@/utils";
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -100,25 +99,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Scripts />
 			</body>
 		</html>
-	);
-}
-
-function NotFound() {
-	return (
-		<>
-			<title>{formatTitle("no such directory")}</title>
-			<div className="flex flex-col gap-3 text-center">
-				<h1 className="text-3xl text-terminal-field pb-10">404: not found</h1>
-				<p className="text-lg">
-					we couldn't find the page you were looking for :(
-				</p>
-				<Link
-					to="/about"
-					className="text-terminal-accent underline underline-offset-4"
-				>
-					return to home
-				</Link>
-			</div>
-		</>
 	);
 }
