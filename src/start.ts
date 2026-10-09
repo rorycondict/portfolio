@@ -5,9 +5,6 @@ import {
 } from "@tanstack/react-start";
 import headersFile from "../public/_headers?raw";
 
-// Static assets and prerendered pages get their headers from public/_headers,
-// but anything the Worker renders (404s, /api routes) bypasses that file, so
-// reuse its "/*" rules here to keep a single source of truth.
 const SECURITY_HEADERS = parseHeadersRules(headersFile, "/*");
 
 function parseHeadersRules(file: string, path: string) {
@@ -34,7 +31,6 @@ function parseHeadersRules(file: string, path: string) {
 const securityHeadersMiddleware = createMiddleware().server(
 	async ({ next }) => {
 		const result = await next();
-		// Copy the response, as headers on fetched or redirect responses are immutable
 		const response = new Response(result.response.body, result.response);
 
 		for (const [name, value] of SECURITY_HEADERS) {
@@ -45,8 +41,6 @@ const securityHeadersMiddleware = createMiddleware().server(
 	},
 );
 
-// Defining startInstance replaces Start's default CSRF protection for server
-// functions, so add it back explicitly
 const csrfMiddleware = createCsrfMiddleware({
 	filter: (ctx) => ctx.handlerType === "serverFn",
 });
