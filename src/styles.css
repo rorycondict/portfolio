@@ -1,5 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&text=%20%E2%96%88%E2%96%91&display=block");
 @import "tailwindcss";
+
+/* JetBrains Mono (SIL OFL 1.1, see fonts/OFL.txt), subset to the space
+   and block characters the ASCII art uses */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/JetBrainsMono-blocks.woff2") format("woff2");
+  font-display: block;
+  unicode-range: U+0020, U+2588, U+2591;
+}
 
 @theme {
   --font-sans: "Consolas", monospace;
