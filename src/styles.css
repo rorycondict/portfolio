@@ -42,6 +42,12 @@
   color-scheme: dark;
 }
 
+/* The theme toggle crossfades the whole page between themes */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
 html,
 body {
   min-height: 100%;

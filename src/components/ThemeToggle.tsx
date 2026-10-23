@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import type { IconType } from "react-icons";
 import { TbMoon, TbSun, TbSunMoon } from "react-icons/tb";
 import {
@@ -23,8 +24,14 @@ export default function ThemeToggle({ size = 20 }: { size?: number }) {
 
 	function cycle() {
 		const next = nextThemeMode(mode ?? "auto");
-		applyThemeMode(next);
-		setMode(next);
+		const update = () => {
+			applyThemeMode(next);
+			// Rendered inside the transition so the icon crossfades with the page
+			flushSync(() => setMode(next));
+		};
+
+		if (document.startViewTransition) document.startViewTransition(update);
+		else update();
 	}
 
 	const current = mode ?? "auto";
