@@ -192,7 +192,8 @@ body {
 .nav-link::after {
   position: absolute;
   color: var(--fg-muted);
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 170ms ease;
 }
 
 .nav-link::before {
@@ -212,7 +213,7 @@ body {
 
 .nav-link.is-active::before,
 .nav-link.is-active::after {
-  visibility: visible;
+  opacity: 1;
 }
 
 .terminal-reveal {
