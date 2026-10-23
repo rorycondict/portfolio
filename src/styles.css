@@ -42,6 +42,12 @@
   color-scheme: dark;
 }
 
+/* The theme toggle crossfades the whole page between themes */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
 html,
 body {
   min-height: 100%;
@@ -192,7 +198,8 @@ body {
 .nav-link::after {
   position: absolute;
   color: var(--fg-muted);
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 170ms ease;
 }
 
 .nav-link::before {
@@ -212,7 +219,7 @@ body {
 
 .nav-link.is-active::before,
 .nav-link.is-active::after {
-  visibility: visible;
+  opacity: 1;
 }
 
 .terminal-reveal {

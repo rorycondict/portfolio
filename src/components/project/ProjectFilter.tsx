@@ -25,7 +25,7 @@ export default function ProjectFilter({
 				autoComplete="off"
 				spellCheck={false}
 				maxLength={50}
-				className="field-sizing-content max-w-full min-w-[12ch] bg-transparent p-1 caret-fg-highlight outline-0 outline-muted outline-dashed placeholder-shown:outline-1 placeholder:text-muted"
+				className="field-sizing-content max-w-full min-w-[12ch] bg-transparent p-1 caret-fg-highlight outline-0 outline-muted outline-dashed  text-terminal-accent placeholder-shown:outline-1 placeholder:text-muted"
 			/>
 
 			{query && (

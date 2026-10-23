@@ -100,7 +100,7 @@ function MobileMenu() {
 
 export default function Header() {
 	return (
-		<header className="sticky top-0 z-50 px-4 order-last md:order-first text-lg">
+		<header className="sticky top-0 z-50 px-4 pb-[env(safe-area-inset-bottom)] md:pb-0 order-last md:order-first text-lg">
 			<nav
 				aria-label="main"
 				className="page-wrap relative hidden grid-cols-[1fr_auto] items-center gap-x-[2ch] py-4 md:grid"

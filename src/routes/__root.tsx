@@ -22,7 +22,7 @@ export const Route = createRootRoute({
 			},
 			{
 				name: "viewport",
-				content: "width=device-width, initial-scale=1",
+				content: "width=device-width, initial-scale=1, viewport-fit=cover",
 			},
 			{ name: "description", content: SITE.description },
 
@@ -79,8 +79,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body
-				className={`w-full mx-auto antialiased wrap-anywhere ${
-					chrome.terminal ? "flex h-dvh flex-col overflow-hidden py-5" : ""
+				className={`w-full mx-auto pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] antialiased wrap-anywhere ${
+					chrome.terminal ? "flex h-dvh flex-col overflow-hidden md:py-5" : ""
 				}`}
 			>
 				{chrome.header && <Header />}

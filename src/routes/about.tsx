@@ -29,7 +29,11 @@ const terminalColors: [string, string][] = [
 
 function AsciiArt() {
 	return (
-		<div className="ascii-fit flex w-full flex-wrap justify-start">
+		<div
+			className="ascii-fit flex w-full flex-wrap justify-start"
+			role="img"
+			aria-label="rory condict."
+		>
 			<pre className="ascii-art md:pr-5 pb-3">
 				{`
 
