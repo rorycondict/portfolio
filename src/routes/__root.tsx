@@ -79,7 +79,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body
-				className={`w-full mx-auto antialiased wrap-anywhere ${
+				className={`w-full mx-auto pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] antialiased wrap-anywhere ${
 					chrome.terminal ? "flex h-dvh flex-col overflow-hidden md:py-5" : ""
 				}`}
 			>
