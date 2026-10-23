@@ -174,6 +174,7 @@ export const Route = createFileRoute("/api/contact")({
 					from: "portfolio website <contact@mail.rorycondict.com>",
 					to: "hi@rorycondict.com",
 					replyTo: email,
+					// Collapse whitespace so line breaks can't reach the subject header
 					subject: `a new message from the site: ${name.replace(/\s+/g, " ")}`,
 					html: `
 						<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
